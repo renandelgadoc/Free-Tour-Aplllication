@@ -1,7 +1,14 @@
+//
+// Created by renan on 06/04/2022.
+//
+
 #include "containers.h"
 
-// ----------------------------------------------------------------------
-// Implementações de métodos de classe container.
+ContainerUsuario* ContainerUsuario::getInstancia() {
+    if (instancia == nullptr)
+        instancia = new ContainerUsuario();
+    return instancia;
+}
 
 bool ContainerUsuario::incluir(Usuario usuario){
     for(list<Usuario>::iterator elemento = container.begin(); elemento != container.end(); elemento++){
@@ -26,28 +33,50 @@ bool ContainerUsuario::remover(Email email){
 bool ContainerUsuario::pesquisar(Usuario* usuario){
     for(list<Usuario>::iterator elemento = container.begin(); elemento != container.end(); elemento++){
         if (elemento->getEmail().getValor() == usuario->getEmail().getValor()){
-            usuario->setEmail(elemento->getEmail());    // Copiar atributos de objeto localizado.
             usuario->setSenha(elemento->getSenha());
-			usuario->setNome(elemento->getNome());
+            usuario->setNome(elemento->getNome());
             return true;
         }
     }
     return false;
 }
 
-bool ContainerUsuario::atualizar(Usuario usuario){
+bool ContainerUsuario::atualizarSenha(Usuario usuario){
     for(list<Usuario>::iterator elemento = container.begin(); elemento != container.end(); elemento++){
         if (elemento->getEmail().getValor() == usuario.getEmail().getValor()){
-            elemento->setEmail(usuario.getEmail());     // Copiar atributos para objeto localizado.
             elemento->setSenha(usuario.getSenha());
-			elemento->setNome(usuario.getNome());
             return true;
+        }
+    }
+    return false;
+}
+
+bool ContainerUsuario::atualizarNome(Usuario usuario){
+    for(list<Usuario>::iterator elemento = container.begin(); elemento != container.end(); elemento++){
+        if (elemento->getEmail().getValor() == usuario.getEmail().getValor()){
+            elemento->setNome(usuario.getNome());
+            return true;
+        }
+    }
+    return false;
+}
+
+bool ContainerUsuario::autenticar(Usuario usuario) {
+    for(list<Usuario>::iterator elemento = container.begin(); elemento != container.end(); elemento++){
+        if (elemento->getEmail().getValor() == usuario.getEmail().getValor()){
+            return elemento->getSenha().getValor() == usuario.getSenha().getValor();
         }
     }
     return false;
 }
 
 // Excursao =-=-=-=-=-=-=
+
+ContainerExcursao* ContainerExcursao::getInstancia() {
+    if (instancia == nullptr)
+        instancia = new ContainerExcursao();
+    return instancia;
+}
 
 bool ContainerExcursao::incluir(Excursao excursao){
     for(list<Excursao>::iterator elemento = container.begin(); elemento != container.end(); elemento++){
@@ -74,11 +103,11 @@ bool ContainerExcursao::pesquisar(Excursao* excursao){
         if (elemento->getCodigo().getValor() == excursao->getCodigo().getValor()){
             excursao->setCodigo(elemento->getCodigo());    // Copiar atributos de objeto localizado.
             excursao->setTitulo(elemento->getTitulo());
-			excursao->setNota(elemento->getNota());
-			excursao->setCidade(elemento->getCidade());
-			excursao->setDuracao(elemento->getDuracao());
-			excursao->setDescricao(elemento->getDescricao());
-			excursao->setEndereco(elemento->getEndereco());
+            excursao->setNota(elemento->getNota());
+            excursao->setCidade(elemento->getCidade());
+            excursao->setDuracao(elemento->getDuracao());
+            excursao->setDescricao(elemento->getDescricao());
+            excursao->setEndereco(elemento->getEndereco());
             return true;
         }
     }
@@ -90,11 +119,11 @@ bool ContainerExcursao::atualizar(Excursao excursao){
         if (elemento->getCodigo().getValor() == excursao.getCodigo().getValor()){
             elemento->setCodigo(excursao.getCodigo());     // Copiar atributos para objeto localizado.
             elemento->setTitulo(excursao.getTitulo());
-			elemento->setNota(excursao.getNota());
-			elemento->setCidade(excursao.getCidade());
-			elemento->setDuracao(excursao.getDuracao());
-			elemento->setDescricao(excursao.getDescricao());
-			elemento->setEndereco(excursao.getEndereco());
+            elemento->setNota(excursao.getNota());
+            elemento->setCidade(excursao.getCidade());
+            elemento->setDuracao(excursao.getDuracao());
+            elemento->setDescricao(excursao.getDescricao());
+            elemento->setEndereco(excursao.getEndereco());
             return true;
         }
     }
@@ -102,6 +131,12 @@ bool ContainerExcursao::atualizar(Excursao excursao){
 }
 
 // Sessao =-=-=-=-=-=-=
+
+ContainerSessao* ContainerSessao::getInstancia() {
+    if (instancia == nullptr)
+        instancia = new ContainerSessao();
+    return instancia;
+}
 
 bool ContainerSessao::incluir(Sessao sessao){
     for(list<Sessao>::iterator elemento = container.begin(); elemento != container.end(); elemento++){
@@ -128,8 +163,8 @@ bool ContainerSessao::pesquisar(Sessao* sessao){
         if (elemento->getCodigo().getValor() == sessao->getCodigo().getValor()){
             sessao->setCodigo(elemento->getCodigo());    // Copiar atributos de objeto localizado.
             sessao->setData(elemento->getData());
-			sessao->setHorario(elemento->getHorario());
-			sessao->setIdioma(elemento->getIdioma());
+            sessao->setHorario(elemento->getHorario());
+            sessao->setIdioma(elemento->getIdioma());
             return true;
         }
     }
@@ -141,8 +176,8 @@ bool ContainerSessao::atualizar(Sessao sessao){
         if (elemento->getCodigo().getValor() == sessao.getCodigo().getValor()){
             elemento->setCodigo(sessao.getCodigo());     // Copiar atributos para objeto localizado.
             elemento->setData(sessao.getData());
-			elemento->setHorario(sessao.getHorario());
-			elemento->setIdioma(sessao.getIdioma());
+            elemento->setHorario(sessao.getHorario());
+            elemento->setIdioma(sessao.getIdioma());
             return true;
         }
     }
@@ -150,6 +185,12 @@ bool ContainerSessao::atualizar(Sessao sessao){
 }
 
 // Avaliacao =-=-=-=-=-=-=
+
+ContainerAvaliacao* ContainerAvaliacao::getInstancia() {
+    if (instancia == nullptr)
+        instancia = new ContainerAvaliacao();
+    return instancia;
+}
 
 bool ContainerAvaliacao::incluir(Avaliacao avaliacao){
     for(list<Avaliacao>::iterator elemento = container.begin(); elemento != container.end(); elemento++){
@@ -176,7 +217,7 @@ bool ContainerAvaliacao::pesquisar(Avaliacao* avaliacao){
         if (elemento->getCodigo().getValor() == avaliacao->getCodigo().getValor()){
             avaliacao->setCodigo(elemento->getCodigo());    // Copiar atributos de objeto localizado.
             avaliacao->setNota(elemento->getNota());
-			avaliacao->setDescricao(elemento->getDescricao());
+            avaliacao->setDescricao(elemento->getDescricao());
             return true;
         }
     }
@@ -188,7 +229,7 @@ bool ContainerAvaliacao::atualizar(Avaliacao avaliacao){
         if (elemento->getCodigo().getValor() == avaliacao.getCodigo().getValor()){
             elemento->setCodigo(avaliacao.getCodigo());     // Copiar atributos para objeto localizado.
             elemento->setNota(avaliacao.getNota());
-			elemento->setDescricao(avaliacao.getDescricao());
+            elemento->setDescricao(avaliacao.getDescricao());
             return true;
         }
     }

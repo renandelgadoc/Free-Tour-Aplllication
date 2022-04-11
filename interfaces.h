@@ -23,16 +23,19 @@ class IApresentacaoAutenticacao {
     public:
         virtual bool autenticar(Email*) = 0;
         virtual void setCntrServicoAutenticacao(IServicoAutenticacao*) = 0;
+        virtual void setCntrServicoPessoal(IServicoPessoal*) = 0;
         virtual ~IApresentacaoAutenticacao(){}
 };
 
 class IApresentacaoPessoal{
-    public:
-        virtual void executar(Email) = 0;
-        virtual void cadastrar() = 0;
-        virtual void setCntrServicoPessoal(IServicoPessoal*) = 0;
-        virtual void setCntrServicoExcursoes(IServicoExcursoes*) = 0;
-        virtual ~IApresentacaoPessoal(){}
+public:
+    virtual bool executar(Email) = 0;
+    virtual void cadastrar() = 0;
+    virtual bool descadrastar(Email) = 0;
+    virtual void atualizar(Email) = 0;
+    virtual void setCntrServicoPessoal(IServicoPessoal*) = 0;
+    virtual void setCntrServicoExcursoes(IServicoExcursoes*) = 0;
+    virtual ~IApresentacaoPessoal(){}
 };
 
 class IApresentacaoExcursoes{
@@ -48,13 +51,17 @@ class IApresentacaoExcursoes{
 
 class IServicoAutenticacao {
     public:
-        virtual bool autenticar(Email, Senha) = 0;
+        virtual bool autenticar(Usuario) = 0;
         virtual ~IServicoAutenticacao(){}
 };
 
 class IServicoPessoal{
 public:
         virtual bool cadastrarUsuario(Usuario) = 0;
+        virtual bool descadastrarUsuario(Email) = 0;
+        virtual bool consultarUsuario(Usuario*) = 0;
+        virtual bool atualizarSenha(Usuario) = 0;
+        virtual bool atualizarNome(Usuario) = 0;
         virtual ~IServicoPessoal(){}
 };
 
@@ -64,7 +71,7 @@ public:
         virtual bool descadastrarExcursao(Codigo) = 0;
         virtual bool cadastrarAvaliacao(Avaliacao) = 0;
         virtual bool descadastrarAvaliacao(Codigo) = 0;
-        virtual bool cadastrarSessao(Avaliacao) = 0;
+        virtual bool cadastrarSessao(Sessao) = 0;
         virtual bool descadastrarSessao(Codigo) = 0;
         virtual ~IServicoExcursoes(){}
 };

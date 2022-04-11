@@ -40,14 +40,21 @@ inline void CntrApresentacaoControle::setCntrApresentacaoExcursoes(IApresentacao
 
 class CntrApresentacaoAutenticacao:public IApresentacaoAutenticacao{
     private:
-        IServicoAutenticacao *cntr;
-    public:
+        IServicoAutenticacao *cntrServicoAutenticacao;
+        IServicoPessoal *cntrServicoPessoal;
+
+public:
         bool autenticar(Email*);
         void setCntrServicoAutenticacao(IServicoAutenticacao*);
+        void setCntrServicoPessoal(IServicoPessoal*);
 };
 
 inline void CntrApresentacaoAutenticacao::setCntrServicoAutenticacao(IServicoAutenticacao *cntr){
-    this->cntr = cntr;
+    cntrServicoAutenticacao = cntr;
+}
+
+inline void CntrApresentacaoAutenticacao::setCntrServicoPessoal(IServicoPessoal *cntr){
+    cntrServicoPessoal = cntr;
 }
 
 //--------------------------------------------------------------------------------------------
@@ -56,12 +63,14 @@ class CntrApresentacaoPessoal:public IApresentacaoPessoal{
     private:
         IServicoPessoal *cntrServicoPessoal;
         IServicoExcursoes *cntrServicoExcursoes;
-        void consultarDadosPessoais();
+        void consultarDadosPessoais(Email email);
     public:
-        void executar(Email);
+        bool executar(Email);
         void cadastrar();
+        bool descadrastar(Email);
         void setCntrServicoPessoal(IServicoPessoal*);
         void setCntrServicoExcursoes(IServicoExcursoes*);
+        void atualizar(Email);
 };
 
 inline void CntrApresentacaoPessoal::setCntrServicoPessoal(IServicoPessoal *cntr){

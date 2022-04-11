@@ -148,6 +148,14 @@ public:
     Idioma getIdioma() const;
 };
 
+inline void Sessao::setCodigo(const Codigo& codigo) {
+    this->codigo = codigo;
+}
+
+inline Codigo Sessao::getCodigo() const {
+    return codigo;
+}
+
 inline void Sessao::setData(const Data& data) {
     this->data = data;
 }

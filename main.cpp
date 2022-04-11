@@ -6,12 +6,20 @@
 #include "dominios.h"
 #include "interfaces.h"
 #include "controladorasapresentacao.h"
-#include "stubs.h"
+#include "controladorasservico.h"
+#include "containers.h"
 
 using namespace std;
 
-int main()
-{
+// Instanciar containers com valor nullptr
+
+    ContainerUsuario* ContainerUsuario::instancia = nullptr;
+    ContainerExcursao* ContainerExcursao::instancia = nullptr;
+    ContainerSessao* ContainerSessao::instancia = nullptr;
+    ContainerAvaliacao* ContainerAvaliacao::instancia = nullptr;
+
+int main(){
+
     // Instanciar controladoras de apresentação.
 
     CntrApresentacaoControle *cntrApresentacaoControle;
@@ -26,13 +34,13 @@ int main()
 
     // Instanciar stubs de serviço.
 
-    IServicoAutenticacao *stubServicoAutenticacao;
-    IServicoPessoal *stubServicoPessoal;
-    IServicoExcursoes *stubServicoExcursoes;
+    IServicoAutenticacao *cntrServicoAutenticacao;
+    IServicoPessoal *cntrServicoPessoal;
+    IServicoExcursoes *cntrServicoExcursoes;
 
-    stubServicoAutenticacao = new StubServicoAutenticacao();
-    stubServicoPessoal = new StubServicoPessoal();
-    stubServicoExcursoes = new StubServicoExcursoes();
+    cntrServicoAutenticacao = new CntrServicoAutenticacao();
+    cntrServicoPessoal = new CntrServicoPessoal();
+    cntrServicoExcursoes = new CntrServicoExcursoes();
 
     // Interligar controladoras e stubs.
 
@@ -40,12 +48,13 @@ int main()
     cntrApresentacaoControle->setCntrApresentacaoPessoal(cntrApresentacaoPessoal);
     cntrApresentacaoControle->setCntrApresentacaoExcursoes(cntrApresentacaoExcursoes);
 
-    cntrApresentacaoAutenticacao->setCntrServicoAutenticacao(stubServicoAutenticacao);
+    cntrApresentacaoAutenticacao->setCntrServicoAutenticacao(cntrServicoAutenticacao);
+    cntrApresentacaoAutenticacao->setCntrServicoPessoal(cntrServicoPessoal);
 
-    cntrApresentacaoPessoal->setCntrServicoPessoal(stubServicoPessoal);
-    cntrApresentacaoPessoal->setCntrServicoExcursoes(stubServicoExcursoes);
+    cntrApresentacaoPessoal->setCntrServicoPessoal(cntrServicoPessoal);
+    cntrApresentacaoPessoal->setCntrServicoExcursoes(cntrServicoExcursoes);
 
-    cntrApresentacaoExcursoes->setCntrServicoExcursoes(stubServicoExcursoes);
+    cntrApresentacaoExcursoes->setCntrServicoExcursoes(cntrServicoExcursoes);
 
     initscr();                                                                      // Iniciar curses.
     cntrApresentacaoControle->executar();                                           // Solicitar serviço apresentacao.
