@@ -390,7 +390,7 @@ bool Codigo::verificar(string codigo) {
     return true;
 }
 
-void Codigo::setValor() {
+void Codigo::createValor() {
     srand(Codigo::semente);
     string codigo = "";
     int randomNumber = 0;
@@ -407,12 +407,16 @@ void Codigo::setValor() {
         Codigo::codigosExistentes[Codigo::semente - 1] = codigo;
         this->codigo = codigo;
     } else {
-        setValor();
+        createValor();
     }
 }
 
+void Codigo::setValor(string codigo) {
+this->codigo=codigo;
+}
+
 Codigo::Codigo() {
-    setValor();
+    createValor();
 }
 
 int Codigo::semente = 1;

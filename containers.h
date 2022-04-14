@@ -35,6 +35,7 @@ public:
     bool remover(Codigo);
     bool pesquisar(Excursao*);
     bool atualizar(Excursao);
+    bool autenticar(Codigo);
 };
 
 

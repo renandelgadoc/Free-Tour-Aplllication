@@ -16,17 +16,17 @@
 using namespace std;
 
 /* -----------------------------------------------------------------------
-// Estrutura de cÃ³digo para declaraÃ§Ã£o de classe domÃ­nio.
+// Estrutura de código para declaração de classe domínio.
 // Substituir Dominio por nome da classe.
 // Substituir Tipo.
 
 class Dominio {
     private:
         Tipo valor;                      // Atributo para armazenar valor.
-        void validar(Tipo);              // MÃ©todo para validar valor.
+        void validar(Tipo);              // Método para validar valor.
     public:
-        void setValor(Tipo);             // MÃ©todo para atribuir valor.
-        Tipo getValor() const;           // MÃ©todo para recuperar valor.
+        void setValor(Tipo);             // Método para atribuir valor.
+        Tipo getValor() const;           // Método para recuperar valor.
 };
 
 inline Tipo Dominio::getValor() const{
@@ -35,9 +35,9 @@ inline Tipo Dominio::getValor() const{
 
 ----------------------------------------------------------------------- */
 ///
-/// PadrÃ£o para representaÃ§Ã£o de DuraÃ§Ã£o
+/// Padrão para representação de Duração
 ///
-/// Regras de formato para ser vÃ¡lido:
+/// Regras de formato para ser válido:
 /// - Pertencer a seguinte lista: {30,60,90,120,180}
 ///
 
@@ -46,22 +46,22 @@ class Duracao {  //200073303
         int valoresValidos[5] = {30,60,90,120,180};
         int valorDuracao;
         ///
-        /// ValidaÃ§Ã£o do valor informado
-        /// @param valor DuraÃ§Ã£o
+        /// Validação do valor informado
+        /// @param valor Duração
         /// @return
-        /// - Retorna true caso o valor seja vÃ¡lido
-        /// - Retorna false caso o valor seja invÃ¡lido
+        /// - Retorna true caso o valor seja válido
+        /// - Retorna false caso o valor seja inválido
         ///
         bool validar(int);
     public:
         ///
-        /// Armazena a duraÃ§Ã£o
-        ///@param valor DuraÃ§Ã£o
+        /// Armazena a duração
+        ///@param valor Duração
         ///
         void setValor(int);
         ///
-        /// Retorna a duraÃ§Ã£o
-        /// @return DuraÃ§Ã£o
+        /// Retorna a duração
+        /// @return Duração
         ///
         int getValor() const;
 };
@@ -70,13 +70,13 @@ inline int Duracao::getValor() const {  //200073303
     return valorDuracao;
 }
 ///
-/// PadrÃ£o para representaÃ§Ã£o de EndereÃ§o
+/// Padrão para representação de Endereço
 ///
-/// Regras de formato para ser vÃ¡lido:
+/// Regras de formato para ser válido:
 ///
-/// - NÃºmero de caractÃ©res entre 0 e 20
-/// - NÃ£o hÃ¡ espaÃ§os em branco em sequÃªncia.
-/// - NÃ£o hÃ¡ pontos (.) em sequÃªncia.
+/// - Número de caractéres entre 0 e 20
+/// - Não há espaços em branco em sequência.
+/// - Não há pontos (.) em sequência.
 ///
 class Endereco {  //200073303
     private:
@@ -84,22 +84,22 @@ class Endereco {  //200073303
         static const int maxCaracteres = 20;
         string valorEndereco;
         ///
-        /// ValidaÃ§Ã£o do valor informado
-        /// @param valor EndereÃ§o
+        /// Validação do valor informado
+        /// @param valor Endereço
         /// @return
-        /// - Retorna true caso o valor seja vÃ¡lido
-        /// - Retorna false caso o valor seja invÃ¡lido
+        /// - Retorna true caso o valor seja válido
+        /// - Retorna false caso o valor seja inválido
         ///
         bool validar(string);
     public:
         ///
-        /// Armazena o endereÃ§o
-        /// @param valor EndereÃ§o
+        /// Armazena o endereço
+        /// @param valor Endereço
         ///
         void setValor(string);
         ///
-        /// Retorna o endereÃ§o
-        /// @return EndereÃ§o
+        /// Retorna o endereço
+        /// @return Endereço
         ///
         string getValor() const;
 };
@@ -108,12 +108,12 @@ inline string Endereco::getValor() const {  //200073303
     return valorEndereco;
 }
 ///
-/// PadrÃ£o para representaÃ§Ã£o de DescriÃ§Ã£o
+/// Padrão para representação de Descrição
 ///
-/// Regras de formato para ser vÃ¡lido:
-/// - NÃºmero de caractÃ©res entre 0 e 30
-/// - NÃ£o hÃ¡ espaÃ§os em branco em sequÃªncia.
-/// - NÃ£o hÃ¡ pontos (.) em sequÃªncia.
+/// Regras de formato para ser válido:
+/// - Número de caractéres entre 0 e 30
+/// - Não há espaços em branco em sequência.
+/// - Não há pontos (.) em sequência.
 ///
 class Descricao {  //200073303
 private:
@@ -121,22 +121,22 @@ private:
     static const int maxCaracteres = 30;
     string valorDescricao;
     ///
-    /// ValidaÃ§Ã£o do valor informado
-    /// @param valor DescriÃ§Ã£o
+    /// Validação do valor informado
+    /// @param valor Descrição
     /// @return
-    /// - Retorna true caso o valor seja vÃ¡lido
-    /// - Retorna false caso o valor seja invÃ¡lido
+    /// - Retorna true caso o valor seja válido
+    /// - Retorna false caso o valor seja inválido
     ///
     bool validar(string);
 public:
     ///
-    /// Armazena a descriÃ§Ã£o
-    /// @param valor DescriÃ§Ã£o
+    /// Armazena a descrição
+    /// @param valor Descrição
     ///
     void setValor(string);
     ///
-    /// Retorna a descriÃ§Ã£o
-    /// @return DescriÃ§Ã£o
+    /// Retorna a descrição
+    /// @return Descrição
     ///
     string getValor() const;
 };
@@ -145,13 +145,13 @@ inline string Descricao::getValor() const {  //200073303
     return valorDescricao;
 }
 ///
-/// PadrÃ£o para representaÃ§Ã£o de TÃ­tulo
+/// Padrão para representação de Título
 ///
-/// Regras de formato para ser vÃ¡lido:
-/// - NÃºmero de caractÃ©res entre 5 e 20
-/// - CaractÃ©res sÃ£o somente letras do alfabeto
-/// - NÃ£o hÃ¡ espaÃ§os em branco em sequÃªncia.
-/// - NÃ£o hÃ¡ pontos (.) em sequÃªncia.
+/// Regras de formato para ser válido:
+/// - Número de caractéres entre 5 e 20
+/// - Caractéres são somente letras do alfabeto
+/// - Não há espaços em branco em sequência.
+/// - Não há pontos (.) em sequência.
 //
 class Titulo {  //200073303
 private:
@@ -159,22 +159,22 @@ private:
     static const int maxCaracteres = 20;
     string valorTitulo;
     ///
-    /// ValidaÃ§Ã£o do valor informado
-    /// @param valor TÃ­tulo
+    /// Validação do valor informado
+    /// @param valor Título
     /// @return
-    /// - Retorna true caso o valor seja vÃ¡lido
-    /// - Retorna false caso o valor seja invÃ¡lido
+    /// - Retorna true caso o valor seja válido
+    /// - Retorna false caso o valor seja inválido
     ///
     bool validar(string);
 public:
     ///
-    /// Armazena o tÃ­tulo
-    /// @param valor TÃ­tulo
+    /// Armazena o título
+    /// @param valor Título
     ///
     void setValor(string);
     ///
-    /// Retorna o tÃ­tulo
-    /// @return TÃ­tulo
+    /// Retorna o título
+    /// @return Título
     ///
     string getValor() const;
 };
@@ -183,11 +183,11 @@ inline string Titulo::getValor() const {  //200073303
     return valorTitulo;
 }
 ///
-/// PadrÃ£o para representaÃ§Ã£o de HorÃ¡rio
+/// Padrão para representação de Horário
 ///
-/// Regras de formato para ser vÃ¡lido:
-/// - NÃºmero de horas entre 0 e 23
-/// - NÃºmero de minutos entre 0 e 59
+/// Regras de formato para ser válido:
+/// - Número de horas entre 0 e 23
+/// - Número de minutos entre 0 e 59
 /// - Formato HH:MM (HH -> Horas, MM -> Minutos)
 ///
 class Horario {  //200073303
@@ -198,22 +198,22 @@ private:
     static const int minMinutos = 0;
     string valorHorario;
     ///
-    /// ValidaÃ§Ã£o do valor informado
-    /// @param valor HorÃ¡rio
+    /// Validação do valor informado
+    /// @param valor Horário
     /// @return
-    /// - Retorna true caso o valor seja vÃ¡lido
-    /// - Retorna false caso o valor seja invÃ¡lido
+    /// - Retorna true caso o valor seja válido
+    /// - Retorna false caso o valor seja inválido
     ///
     bool validar(string);
 public:
     ///
-    /// Armazena o horÃ¡rio
-    /// @param valor HorÃ¡rio
+    /// Armazena o horário
+    /// @param valor Horário
     ///
     void setValor(string);
     ///
-    /// Retorna o horÃ¡rio
-    /// @return HorÃ¡rio
+    /// Retorna o horário
+    /// @return Horário
     ///
     string getValor() const;
 };
@@ -222,14 +222,14 @@ inline string Horario::getValor() const {  //200073303
     return valorHorario;
 }
 ///
-/// PadrÃ£o para representaÃ§Ã£o de Data
+/// Padrão para representação de Data
 ///
-/// Regras de formato para ser vÃ¡lido:
-/// - NÃºmero do dia entre 1 e 31 e vÃ¡lido conforme o mÃªs
-/// - MÃªs pertence a seguinte lista: {Jan, Fev, Mar, Abr, Mai, Jun, Jul, Ago, Set, Out, Nov, Dez}
+/// Regras de formato para ser válido:
+/// - Número do dia entre 1 e 31 e válido conforme o mês
+/// - Mês pertence a seguinte lista: {Jan, Fev, Mar, Abr, Mai, Jun, Jul, Ago, Set, Out, Nov, Dez}
 /// - Ano entre 2000 e 9999
-/// - Formato DD-MES-AAAA (DD -> Dia, MES -> MÃªs, AAAA -> Ano)
-/// - Daata considera a ocorrÃªncia de anos bissextos
+/// - Formato DD-MES-AAAA (DD -> Dia, MES -> Mês, AAAA -> Ano)
+/// - Daata considera a ocorrência de anos bissextos
 ///
 class Data {  //200073303
 private:
@@ -253,11 +253,11 @@ private:
     static const int maxAnos = 9999;
     string valorData;
     ///
-    /// ValidaÃ§Ã£o do valor informado
+    /// Validação do valor informado
     /// @param valor Data
     /// @return
-    /// - Retorna true caso o valor seja vÃ¡lido
-    /// - Retorna false caso o valor seja invÃ¡lido
+    /// - Retorna true caso o valor seja válido
+    /// - Retorna false caso o valor seja inválido
     //
     bool validar(string);
 public:
@@ -283,9 +283,9 @@ inline string Data::getValor() const {  //200073303
 
 using namespace std;
 ///
-/// PadrÃ£o para representaÃ§Ã£o de Cidade
+/// Padrão para representação de Cidade
 ///
-/// Regras de formato para ser vÃ¡lido:
+/// Regras de formato para ser válido:
 /// - Pertence a seguinte lista: {Hong Kong, Bangkok, Macau, Singapura, Londres, Paris, Dubai, Delhi, Istambul, Kuala
 ///Lumpur, Nova Iorque, Antalya, Mumbai, Shenzhen, Phuket}
 ///
@@ -297,7 +297,7 @@ private:
                                  "Istambul", "Kuala","Lumpur", "Nova Iorque",
                                  "Antalya", "Mumbai", "Shenzhen", "Phuket"};
     ///
-    /// ValidaÃ§Ã£o do valor informado
+    /// Validação do valor informado
     /// @param valor Cidade
     ///
     void validar(string);
@@ -320,12 +320,12 @@ inline string Cidade::getValor() const {   //200062743
 }
 
 ///
-/// PadrÃ£o para representaÃ§Ã£o de Idioma
+/// Padrão para representação de Idioma
 ///
-/// Regras de formato para ser vÃ¡lido:
-/// - Pertence a seguinte lista: {InglÃªs, ChinÃªs Mandarim, Hindi, Espanhol, FrancÃªs, Ãrabe, Bengali, Russo, PortuguÃªs,
-///IndonÃ©sio}
-/// - Desconsiderar a acentuaÃ§Ã£o.
+/// Regras de formato para ser válido:
+/// - Pertence a seguinte lista: {Inglês, Chinês Mandarim, Hindi, Espanhol, Francês, Árabe, Bengali, Russo, Português,
+///Indonésio}
+/// - Desconsiderar a acentuação.
 ///
 class Idioma {   //200062743
 private:
@@ -334,7 +334,7 @@ private:
                                  "Espanhol", "Frances", "Arabe", "Bengali",
                                  "Russo", "Portugues", "Indonesio"};
     ///
-    /// ValidaÃ§Ã£o do valor informado
+    /// Validação do valor informado
     /// @param valor Cidade
     ///
     void validar(string);
@@ -356,19 +356,19 @@ inline string Idioma::getValor() const {   //200062743
     return idioma;
 }
 ///
-/// PadrÃ£o para representaÃ§Ã£o de Senha
+/// Padrão para representação de Senha
 ///
-/// Regras de formato para ser vÃ¡lido:
+/// Regras de formato para ser válido:
 /// - Formato: XXXXXX
-/// - Cada caractere X Ã© letra (A-Z ou a-z) ou dÃ­gito (0-9).
-/// - NÃ£o existe caracter repetido.
-/// - Existe pelo menos uma letra maiÃºscula, uma letra minÃºscula e um dÃ­gito
+/// - Cada caractere X é letra (A-Z ou a-z) ou dígito (0-9).
+/// - Não existe caracter repetido.
+/// - Existe pelo menos uma letra maiúscula, uma letra minúscula e um dígito
 ///
 class Senha {   //200062743
 private:
     string senha;
     ///
-    /// ValidaÃ§Ã£o do valor informado
+    /// Validação do valor informado
     /// @param valor Senha
     ///
     void validar(string);
@@ -391,21 +391,21 @@ inline string Senha::getValor() const {   //200062743
     return senha;
 }
 ///
-/// PadrÃ£o para representaÃ§Ã£o de Nome
+/// Padrão para representação de Nome
 ///
-/// Regras de formato para ser vÃ¡lido:
-/// - NÃºmero de caracteres entre 5 e 20
-/// - Cada caractere Ã© letra (A-Z ou a-z), ponto (.) ou espaÃ§o em branco.
-/// - Ponto (.) Ã© precedido por letra.
-/// - Ponto (.) Ã© Ãºltimo caractere ou Ã© seguido por um espaÃ§o em branco.
-/// - NÃ£o hÃ¡ espaÃ§os em branco em sequÃªncia.
-/// - Primeira letra de cada termo Ã© letra maiÃºscula (A-Z).
+/// Regras de formato para ser válido:
+/// - Número de caracteres entre 5 e 20
+/// - Cada caractere é letra (A-Z ou a-z), ponto (.) ou espaço em branco.
+/// - Ponto (.) é precedido por letra.
+/// - Ponto (.) é último caractere ou é seguido por um espaço em branco.
+/// - Não há espaços em branco em sequência.
+/// - Primeira letra de cada termo é letra maiúscula (A-Z).
 ///
 class Nome {   //200062743
 private:
     string nome;
     ///
-    /// ValidaÃ§Ã£o do valor informado
+    /// Validação do valor informado
     /// @param valor Nome
     ///
     void validar(string);
@@ -426,9 +426,9 @@ inline string Nome::getValor() const {   //200062743
     return nome;
 }
 ///
-/// PadrÃ£o para representaÃ§Ã£o de Nota
+/// Padrão para representação de Nota
 ///
-/// Regras de formato para ser vÃ¡lido:
+/// Regras de formato para ser válido:
 /// - Pertence a seguinte lista: {0, 1, 2, 3, 4, 5}
 ///
 class Nota {   //200062743
@@ -436,7 +436,7 @@ private:
     float nota = 0;
     int numeroNotas = 0;
     ///
-    /// ValidaÃ§Ã£o do valor informado
+    /// Validação do valor informado
     /// @param valor Nome
     ///
     void validar(int);
@@ -457,26 +457,26 @@ inline float Nota::getValor() const {   //200062743
     return nota;
 }
 ///
-/// PadrÃ£o para representaÃ§Ã£o de Email
+/// Padrão para representação de Email
 ///
-/// Regras de formato para ser vÃ¡lido:
-/// - Formato parte-local@domÃ­nio
-/// - parte-local Ã© composta por atÃ© 64 caracteres.
-/// - Caractere de parte local pode ser letra maiÃºscula (A-Z) ou minÃºscula (a-z).
-/// - Caractere de parte local pode ser dÃ­gito (0-9).
+/// Regras de formato para ser válido:
+/// - Formato parte-local@domínio
+/// - parte-local é composta por até 64 caracteres.
+/// - Caractere de parte local pode ser letra maiúscula (A-Z) ou minúscula (a-z).
+/// - Caractere de parte local pode ser dígito (0-9).
 /// - Caractere de parte local pode ser ! # $ % & ' * + - / = ? ^ _ ` { | } ~
-/// - Caractere de parte local pode ser ponto (.) desde que nÃ£o seja o primeiro ou o Ãºltimocaractere e que nÃ£o ocorra em sequÃªncia.
-/// - domÃ­nio Ã© composto por atÃ© 253 caracteres.
-/// - Caractere de domÃ­nio pode ser letra maiÃºscula (A-Z) ou minÃºscula (a-z).
-/// - Caractere de domÃ­nio pode ser dÃ­gito (0-9).
-/// - Caractere de domÃ­nio pode hÃ­fen (-).
-/// - Caractere de domÃ­nio pode ser ponto (.) desde que nÃ£o seja o primeiro caractere e nÃ£o ocorra em sequÃªncia.
+/// - Caractere de parte local pode ser ponto (.) desde que não seja o primeiro ou o últimocaractere e que não ocorra em sequência.
+/// - domínio é composto por até 253 caracteres.
+/// - Caractere de domínio pode ser letra maiúscula (A-Z) ou minúscula (a-z).
+/// - Caractere de domínio pode ser dígito (0-9).
+/// - Caractere de domínio pode hífen (-).
+/// - Caractere de domínio pode ser ponto (.) desde que não seja o primeiro caractere e não ocorra em sequência.
 ///
 class Email {   //200062743
 private:
     string email;
     ///
-    /// ValidaÃ§Ã£o do valor informado
+    /// Validação do valor informado
     /// @param valor Email
     ///
     void validar(string);
@@ -497,13 +497,13 @@ inline string Email::getValor() const {   //200062743
     return email;
 }
 ///
-/// PadrÃ£o para representaÃ§Ã£o de CÃ³digo
+/// Padrão para representação de Código
 ///
-/// Regras de formato para ser vÃ¡lido:
+/// Regras de formato para ser válido:
 /// - Formato DDDDDDX
-/// - D Ã© dÃ­gito (0-9).
-/// - NÃ£o existe o cÃ³digo 000000.
-/// - X Ã© dÃ­gito verificador.
+/// - D é dígito (0-9).
+/// - Não existe o código 000000.
+/// - X é dígito verificador.
 ///
 class Codigo { //200062743
 private:
@@ -511,25 +511,26 @@ private:
     static int semente;
     static string codigosExistentes[100];
     ///
-    /// ValidaÃ§Ã£o do valor informado
-    /// @param valor CÃ³digo
+    /// Validação do valor informado
+    /// @param valor Código
     /// @return
-    /// - Retorna true caso o valor seja vÃ¡lido
-    /// - Retorna false caso o valor seja invÃ¡lido
+    /// - Retorna true caso o valor seja válido
+    /// - Retorna false caso o valor seja inválido
     ///
     bool verificar(string);
 public:
     Codigo();
     ///
-    /// Armazena o cÃ³digo
-    /// @param valor CÃ³digo
+    /// Armazena o código
+    /// @param valor Código
     ///
-    void setValor();
+    void setValor(string);
     ///
-    /// Retorna o cÃ³digo
-    /// @return CÃ³digo
+    /// Retorna o código
+    /// @return Código
     ///
     string getValor() const;
+    void createValor();
 };
 
 

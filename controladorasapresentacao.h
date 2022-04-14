@@ -2,14 +2,14 @@
 #define CONTROLADORASAPRESENTACAO_H_INCLUDED
 
 #include <string.h>
-#include <ncurses.h>
+#include "curses.h"
 #include "dominios.h"
 #include "entidades.h"
 #include "interfaces.h"
 
 
 //--------------------------------------------------------------------------------------------
-// Declarações de classes controladoras e implementações de métodos.
+// Declaraï¿½ï¿½es de classes controladoras e implementaï¿½ï¿½es de mï¿½todos.
 
 class CntrApresentacaoControle{
     private:
@@ -87,7 +87,8 @@ class CntrApresentacaoExcursoes: public IApresentacaoExcursoes{
     private:
         IServicoExcursoes *cntr;
         void cadastrarExcursao();
-        void descadastrarExcursao();
+        bool descadastrarExcursao();
+        bool autenticarExcursao();
         void consultarExcursao();
         void cadastrarAvaliacao() ;
         void descadastrarAvaliacao() ;

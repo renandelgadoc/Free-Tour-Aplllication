@@ -2,7 +2,7 @@
 #include <stdexcept>
 #include <iostream>
 
-#include <ncurses.h>
+#include "curses.h"
 #include "dominios.h"
 #include "interfaces.h"
 #include "controladorasapresentacao.h"
@@ -20,7 +20,7 @@ using namespace std;
 
 int main(){
 
-    // Instanciar controladoras de apresentação.
+    // Instanciar controladoras de apresentaï¿½ï¿½o.
 
     CntrApresentacaoControle *cntrApresentacaoControle;
     IApresentacaoAutenticacao *cntrApresentacaoAutenticacao;
@@ -32,7 +32,7 @@ int main(){
     cntrApresentacaoPessoal = new CntrApresentacaoPessoal();
     cntrApresentacaoExcursoes = new CntrApresentacaoExcursoes();
 
-    // Instanciar stubs de serviço.
+    // Instanciar stubs de serviï¿½o.
 
     IServicoAutenticacao *cntrServicoAutenticacao;
     IServicoPessoal *cntrServicoPessoal;
@@ -57,7 +57,7 @@ int main(){
     cntrApresentacaoExcursoes->setCntrServicoExcursoes(cntrServicoExcursoes);
 
     initscr();                                                                      // Iniciar curses.
-    cntrApresentacaoControle->executar();                                           // Solicitar serviço apresentacao.
+    cntrApresentacaoControle->executar();                                           // Solicitar serviï¿½o apresentacao.
     endwin();                                                                       // Finalizar curses.
 
     return 0;

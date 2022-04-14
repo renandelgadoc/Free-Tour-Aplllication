@@ -10,7 +10,7 @@
 using namespace std;
 
 /* -----------------------------------------------------------------------
-// Estrutura de cÃ³digo sugerida para declaraÃ§Ã£o de classe entidade.
+// Estrutura de código sugerida para declaração de classe entidade.
 // Substituir Entidade por nome da classe.
 // Substituir Dominio.
 // Substituir nomeAtributo.
@@ -19,8 +19,8 @@ class Entidade {
     private:
             Dominio nomeAtributo;                   // Declarar cada atributo da classe.
     public:
-            void setnomeAtributo(const Dominio&);   // Declarar mÃ©todo set para cada atributo.
-            Dominio getnomeAtributo() const;        // Declarar mÃ©todo get para cada atributo.
+            void setnomeAtributo(const Dominio&);   // Declarar método set para cada atributo.
+            Dominio getnomeAtributo() const;        // Declarar método get para cada atributo.
 };
 
 inline void Entidade::setnomeAtributo(const Dominio &nomeAtributo){
@@ -33,12 +33,12 @@ inline Dominio Entidade::getnomeAtributo() const{
 
 ----------------------------------------------------------------------- */
 ///
-/// PadrÃ£o para representaÃ§Ã£o de UsuÃ¡rio
+/// Padrão para representação de Usuário
 ///
-/// Regras de formato para ser vÃ¡lido:
-/// - Ter um nome vÃ¡lido
-/// - Ter um email vÃ¡lido
-/// - Ter uma senha vÃ¡lida
+/// Regras de formato para ser válido:
+/// - Ter um nome válido
+/// - Ter um email válido
+/// - Ter uma senha válida
 ///
 class Usuario {
 private:
@@ -78,12 +78,12 @@ inline Senha Usuario::getSenha() const {
     return senha;
 }
 ///
-/// PadrÃ£o para representaÃ§Ã£o de AvaliaÃ§Ã£o
+/// Padrão para representação de Avaliação
 ///
-/// Regras de formato para ser vÃ¡lido:
-/// - Ter um cÃ³digo vÃ¡lido
-/// - Ter uma nota vÃ¡lida
-/// - Ter uma descriÃ§Ã£o vÃ¡lida
+/// Regras de formato para ser válido:
+/// - Ter um código válido
+/// - Ter uma nota válida
+/// - Ter uma descrição válida
 ///
 class Avaliacao {
 private:
@@ -123,13 +123,13 @@ inline Descricao Avaliacao::getDescricao() const {
     return descricao;
 }
 ///
-/// PadrÃ£o para representaÃ§Ã£o de SessÃ£o
+/// Padrão para representação de Sessão
 ///
-/// Regras de formato para ser vÃ¡lido:
-/// - Ter um cÃ³digo vÃ¡lido
-/// - Ter uma data vÃ¡lida
-/// - Ter um horÃ¡rio vÃ¡lido
-/// - Ter um idioma vÃ¡lido
+/// Regras de formato para ser válido:
+/// - Ter um código válido
+/// - Ter uma data válida
+/// - Ter um horário válido
+/// - Ter um idioma válido
 ///
 class Sessao {
 private:
@@ -180,15 +180,15 @@ inline Idioma Sessao::getIdioma() const {
     return idioma;
 }
 ///
-/// PadrÃ£o para representaÃ§Ã£o de ExcursÃ£o
+/// Padrão para representação de Excursão
 ///
-/// Regras de formato para ser vÃ¡lido:
-/// - Ter um cÃ³digo vÃ¡lido
-/// - Ter um tÃ­tulo vÃ¡lido
-/// - Ter uma cidade vÃ¡lida
-/// - Ter uma duraÃ§Ã£o vÃ¡lida
-/// - Ter uma descriÃ§Ã£o vÃ¡lida
-/// - Ter um endereÃ§o vÃ¡lido
+/// Regras de formato para ser válido:
+/// - Ter um código válido
+/// - Ter um título válido
+/// - Ter uma cidade válida
+/// - Ter uma duração válida
+/// - Ter uma descrição válida
+/// - Ter um endereço válido
 ///
 class Excursao {
 private:

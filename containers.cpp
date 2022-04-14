@@ -130,6 +130,15 @@ bool ContainerExcursao::atualizar(Excursao excursao){
     return false;
 }
 
+bool ContainerExcursao::autenticar(Codigo codigo) {
+    for(list<Excursao>::iterator elemento = container.begin(); elemento != container.end(); elemento++){
+        if (elemento->getCodigo().getValor() == codigo.getValor()){
+            return true;
+        }
+    }
+    return false;
+}
+
 // Sessao =-=-=-=-=-=-=
 
 ContainerSessao* ContainerSessao::getInstancia() {

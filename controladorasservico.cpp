@@ -33,6 +33,10 @@ bool CntrServicoExcursoes::descadastrarExcursao(Codigo codigo){
     return ContainerExcursao::getInstancia()->remover(codigo);
 }
 
+bool CntrServicoExcursoes::autenticarExcursao(Codigo codigo){
+    return ContainerExcursao::getInstancia()->autenticar(codigo);
+}
+
 bool CntrServicoExcursoes::cadastrarAvaliacao(Avaliacao avaliacao){
     return ContainerAvaliacao::getInstancia()->incluir(avaliacao);
 }

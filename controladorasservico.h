@@ -38,6 +38,7 @@ private:
 public:
     bool cadastrarExcursao(Excursao);
     bool descadastrarExcursao(Codigo);
+    bool autenticarExcursao(Codigo);
     bool cadastrarAvaliacao(Avaliacao);
     bool descadastrarAvaliacao(Codigo);
     bool cadastrarSessao(Sessao);
