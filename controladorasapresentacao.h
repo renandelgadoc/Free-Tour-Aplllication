@@ -91,9 +91,9 @@ class CntrApresentacaoExcursoes: public IApresentacaoExcursoes{
         bool autenticarExcursao();
         void consultarExcursao();
         void cadastrarAvaliacao() ;
-        void descadastrarAvaliacao() ;
+        bool descadastrarAvaliacao() ;
         void cadastrarSessao() ;
-        void descadastrarSessao() ;
+        bool descadastrarSessao() ;
     public:
         void executar();
         void executar(Email);

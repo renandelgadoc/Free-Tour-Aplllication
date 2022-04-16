@@ -184,7 +184,7 @@ bool CntrApresentacaoPessoal::executar(Email email){
         mvprintw(linha/4 + 2,coluna/4,"%s",texto2);
         mvprintw(linha/4 + 4,coluna/4,"%s",texto3);
         mvprintw(linha/4 + 6,coluna/4,"%s",texto4);
-        mvprintw(linha/4 + 6,coluna/4,"%s",texto5);
+        mvprintw(linha/4 + 8,coluna/4,"%s",texto5);
 
         noecho();
         campo = getch() - 48;
@@ -593,6 +593,7 @@ void CntrApresentacaoExcursoes::cadastrarExcursao(){
     char texto7[]="Dados em formato incorreto. Digite algo.";
     char texto8[]="Sucesso no cadastramento. Digite algo.";
     char texto9[]="Falha no cadastramento. Digite algo.";
+    char texto10[]="SALVE O CODIGO, ELE NUNCA MAIS SERA VISTO!!!";
 
     char campo1[80], campo2[80], campo4[80], campo5[80];
     char campo3[80];
@@ -660,14 +661,15 @@ void CntrApresentacaoExcursoes::cadastrarExcursao(){
     excursao.setCodigo(codigo);
 
     string codigoExcursao = excursao.getCodigo().getValor();
-    string texto10 = "Codigo da Excursao: ";
-    string textoCodigo = texto10 + codigoExcursao;
+    string texto11 = "Codigo da Excursao: ";
+    string textoCodigo = texto11 + codigoExcursao;
     char* char_arr;
     string str_obj(textoCodigo);
     char_arr = &str_obj[0];
     if(cntr->cadastrarExcursao(excursao)){
         mvprintw(linha/4 + 14,coluna/4,"%s",char_arr);
         mvprintw(linha/4 + 18,coluna/4,"%s",texto8);                                               // Informa sucesso.
+        mvprintw(linha/4 + 16,coluna/4,"%s",texto10);
         noecho();
         getch();
         echo();
@@ -825,92 +827,295 @@ void CntrApresentacaoExcursoes::consultarExcursao(){
 
 void CntrApresentacaoExcursoes::cadastrarAvaliacao() {
 
-    //--------------------------------------------------------------------------------------------
-    //--------------------------------------------------------------------------------------------
-    // Substituir código seguinte pela implementação do método.
-    //--------------------------------------------------------------------------------------------
-    //--------------------------------------------------------------------------------------------
+    char texto1[] ="Preencha os seguintes campos: ";
+    char texto2[] ="Nota            :";
+    char texto3[] ="Descricao           :";
+    char texto4[]="Dados em formato incorreto. Digite algo.";
+    char texto5[]="Sucesso no cadastramento. Digite algo.";
+    char texto6[]="Falha no cadastramento. Digite algo.";
+    char texto7[]="SALVE O CODIGO, ELE NUNCA MAIS SERA VISTO!!!";
 
-    // Mensagens a serem apresentadas.
+    char campo1[80], campo2[80];
+
+    // Instancia os domínios.
+
+    Nota nota;
+    Descricao descricao;
+    Codigo codigo;
 
     int linha,coluna;                                                                           // Dados sobre tamanho da tela.
+
     getmaxyx(stdscr,linha,coluna);                                                              // Armazena quantidade de linhas e colunas.
 
-    char texto[]="Servico consultar produto investimento nao implementado. Digite algo.";       // Mensagem a ser apresentada.
+    // Apresenta tela de cadastramento.
+
     clear();                                                                                    // Limpa janela.
-    mvprintw(linha/4,coluna/4,"%s",texto);                                                      // Imprime nome do campo.
+
+    mvprintw(linha/4,coluna/4,"%s",texto1);                                                     // Imprime nome do campo.
+    mvprintw(linha/4 + 2,coluna/4,"%s",texto2);                                                 // Imprime nome do campo.
+    getstr(campo1);                                                                             // Lê valor do campo.     // Lê valor do campo.
+    mvprintw(linha/4 + 4,coluna/4,"%s",texto3);                                                 // Imprime nome do campo.
+    getstr(campo2);                                                                             // Lê valor do campo.
+
+    try{
+        int inteiroNota;
+        stringstream converteNota(campo1);
+        converteNota >> inteiroNota;
+        nota.setValor(inteiroNota);
+        descricao.setValor(string(campo2));
+    }
+    catch(invalid_argument &exp){
+        mvprintw(linha/4 + 18,coluna/4,"%s",texto4);                                           // Informa formato incorreto.
+        noecho();                                                                               // Desabilita eco.
+        getch();                                                                                // Leitura de caracter digitado.
+        echo();                                                                                 // Habilita eco.
+        return;
+    }
+
+    // Instancia e inicializa entidades.
+
+    Avaliacao avaliacao;
+
+    // Cadastra excursao
+
+    avaliacao.setNota(nota);
+    avaliacao.setDescricao(descricao);
+    avaliacao.setCodigo(codigo);
+
+    string codigoAvaliacao = avaliacao.getCodigo().getValor();
+    string texto11 = "Codigo da Avaliacao: ";
+    string textoCodigo = texto11 + codigoAvaliacao;
+    char* char_arr;
+    string str_obj(textoCodigo);
+    char_arr = &str_obj[0];
+    if(cntr->cadastrarAvaliacao(avaliacao)){
+        mvprintw(linha/4 + 14,coluna/4,"%s",char_arr);
+        mvprintw(linha/4 + 18,coluna/4,"%s",texto5);                                               // Informa sucesso.
+        mvprintw(linha/4 + 16,coluna/4,"%s",texto7);
+        noecho();
+        getch();
+        echo();
+        return;
+    }
+
+    mvprintw(linha/4 + 18,coluna/4,"%s",texto6);                                                       // Informa falha.
     noecho();
     getch();
     echo();
+
+    return;
 }
 
 //--------------------------------------------------------------------------------------------
 
-void CntrApresentacaoExcursoes::descadastrarAvaliacao() {
+bool CntrApresentacaoExcursoes::descadastrarAvaliacao() {
 
-    //--------------------------------------------------------------------------------------------
-    //--------------------------------------------------------------------------------------------
-    // Substituir código seguinte pela implementação do método.
-    //--------------------------------------------------------------------------------------------
-    //--------------------------------------------------------------------------------------------
+    char texto1[] = "Preencha o seguinte campo";
+    char texto2[] = "Codigo           :";
+    char texto3[] = "A avaliacao sera excluida permanentemente";
+    char texto4[] = "1. Prosseguir ";
+    char texto5[] = "2. Retornar ";
+    char texto6[]="Dado em formato incorreto. Digite algo.";
+    char texto11[]="Sucesso no descadastramento. Digite algo.";
+    char texto12[]="Falha no descadastramento. Digite algo.";
 
-    // Mensagens a serem apresentadas.
+    int campo;
+    char campo2[80];
+    int linha, coluna;
+    getmaxyx(stdscr, linha, coluna);
 
-    int linha,coluna;                                                                           // Dados sobre tamanho da tela.
-    getmaxyx(stdscr,linha,coluna);                                                              // Armazena quantidade de linhas e colunas.
-
-    char texto[]="Servico consultar produto investimento nao implementado. Digite algo.";       // Mensagem a ser apresentada.
-    clear();                                                                                    // Limpa janela.
-    mvprintw(linha/4,coluna/4,"%s",texto);                                                      // Imprime nome do campo.
-    noecho();
-    getch();
+    clear();
+    mvprintw(linha / 4, coluna / 4, "%s", texto1);
+    mvprintw(linha / 4 + 2, coluna / 4, "%s", texto2);
+    getstr(campo2);
+    mvprintw(linha / 4 + 4, coluna / 4, "%s", texto3);
+    mvprintw(linha / 4 + 6, coluna / 4, "%s", texto4);
+    mvprintw(linha / 4 + 8, coluna / 4, "%s", texto5);
     echo();
+    campo = getch() - 48;
+    noecho();
+
+    Codigo valorCodigo;
+    try{
+    string stringCodigo = campo2;
+    valorCodigo.setValor(stringCodigo);
+    }
+    catch(invalid_argument &exp){
+        mvprintw(linha/4 + 18,coluna/4,"%s",texto6);                                           // Informa formato incorreto.
+        noecho();                                                                               // Desabilita eco.
+        getch();                                                                                // Leitura de caracter digitado.
+        echo();                                                                                 // Habilita eco.
+        return false;
+    }
+
+    switch (campo) {
+        case 1:
+            if(cntr->descadastrarAvaliacao(valorCodigo)){
+                clear();
+                mvprintw(linha/4,coluna/4,"%s",texto11);                                               // Informa sucesso.
+                noecho();
+                getch();
+                echo();
+                return true;
+            }
+            clear();
+            mvprintw(linha/4 ,coluna/4,"%s",texto12);                                                       // Informa falha.
+            noecho();
+            getch();
+            echo();
+            return false;
+        case 2:
+            return false;
+    }
 }
 
 //--------------------------------------------------------------------------------------------
 
 void CntrApresentacaoExcursoes::cadastrarSessao() {
 
-    //--------------------------------------------------------------------------------------------
-    //--------------------------------------------------------------------------------------------
-    // Substituir código seguinte pela implementação do método.
-    //--------------------------------------------------------------------------------------------
-    //--------------------------------------------------------------------------------------------
+    char texto1[] ="Preencha os seguintes campos: ";
+    char texto2[] ="Data            :";
+    char texto3[] ="Horario           :";
+    char texto4[] ="Idioma           :";
+    char texto5[]="Dados em formato incorreto. Digite algo.";
+    char texto6[]="Sucesso no cadastramento. Digite algo.";
+    char texto7[]="Falha no cadastramento. Digite algo.";
+    char texto8[]="SALVE O CODIGO, ELE NUNCA MAIS SERA VISTO!!!";
 
-    // Mensagens a serem apresentadas.
+    char campo1[80], campo2[80], campo3[80];
+
+    // Instancia os domínios.
+
+    Data data;
+    Horario horario;
+    Idioma idioma;
+    Codigo codigo;
 
     int linha,coluna;                                                                           // Dados sobre tamanho da tela.
+
     getmaxyx(stdscr,linha,coluna);                                                              // Armazena quantidade de linhas e colunas.
 
-    char texto[]="Servico consultar produto investimento nao implementado. Digite algo.";       // Mensagem a ser apresentada.
+    // Apresenta tela de cadastramento.
+
     clear();                                                                                    // Limpa janela.
-    mvprintw(linha/4,coluna/4,"%s",texto);                                                      // Imprime nome do campo.
+
+    mvprintw(linha/4,coluna/4,"%s",texto1);                                                     // Imprime nome do campo.
+    mvprintw(linha/4 + 2,coluna/4,"%s",texto2);                                                 // Imprime nome do campo.
+    getstr(campo1);                                                                             // Lê valor do campo.     // Lê valor do campo.
+    mvprintw(linha/4 + 4,coluna/4,"%s",texto3);                                                 // Imprime nome do campo.
+    getstr(campo2);                                                                             // Lê valor do campo.
+    mvprintw(linha/4 + 6,coluna/4,"%s",texto4);                                                 // Imprime nome do campo.
+    getstr(campo3);
+
+    try{
+        data.setValor(string(campo1));
+        horario.setValor(string(campo2));
+        idioma.setValor(string(campo3));
+    }
+    catch(invalid_argument &exp){
+        mvprintw(linha/4 + 18,coluna/4,"%s",texto5);                                           // Informa formato incorreto.
+        noecho();                                                                               // Desabilita eco.
+        getch();                                                                                // Leitura de caracter digitado.
+        echo();                                                                                 // Habilita eco.
+        return;
+    }
+
+    // Instancia e inicializa entidades.
+
+    Sessao sessao;
+
+    // Cadastra excursao
+
+    sessao.setData(data);
+    sessao.setHorario(horario);
+    sessao.setIdioma(idioma);
+    sessao.setCodigo(codigo);
+
+    string codigoSessao = sessao.getCodigo().getValor();
+    string texto11 = "Codigo da Sessao: ";
+    string textoCodigo = texto11 + codigoSessao;
+    char* char_arr;
+    string str_obj(textoCodigo);
+    char_arr = &str_obj[0];
+    if(cntr->cadastrarSessao(sessao)){
+        mvprintw(linha/4 + 14,coluna/4,"%s",char_arr);
+        mvprintw(linha/4 + 18,coluna/4,"%s",texto6);                                               // Informa sucesso.
+        mvprintw(linha/4 + 16,coluna/4,"%s",texto8);
+        noecho();
+        getch();
+        echo();
+        return;
+    }
+
+    mvprintw(linha/4 + 18,coluna/4,"%s",texto7);                                                       // Informa falha.
     noecho();
     getch();
     echo();
+
+    return;
 }
 
 //--------------------------------------------------------------------------------------------
 
-void CntrApresentacaoExcursoes::descadastrarSessao() {
+bool CntrApresentacaoExcursoes::descadastrarSessao() {
 
-    //--------------------------------------------------------------------------------------------
-    //--------------------------------------------------------------------------------------------
-    // Substituir código seguinte pela implementação do método.
-    //--------------------------------------------------------------------------------------------
-    //--------------------------------------------------------------------------------------------
+    char texto1[] = "Preencha o seguinte campo";
+    char texto2[] = "Codigo           :";
+    char texto3[] = "A sessao sera excluida permanentemente";
+    char texto4[] = "1. Prosseguir ";
+    char texto5[] = "2. Retornar ";
+    char texto6[]="Dado em formato incorreto. Digite algo.";
+    char texto11[]="Sucesso no descadastramento. Digite algo.";
+    char texto12[]="Falha no descadastramento. Digite algo.";
 
-    // Mensagens a serem apresentadas.
+    int campo;
+    char campo2[80];
+    int linha, coluna;
+    getmaxyx(stdscr, linha, coluna);
 
-    int linha,coluna;                                                                           // Dados sobre tamanho da tela.
-    getmaxyx(stdscr,linha,coluna);                                                              // Armazena quantidade de linhas e colunas.
-
-    char texto[]="Servico consultar produto investimento nao implementado. Digite algo.";       // Mensagem a ser apresentada.
-    clear();                                                                                    // Limpa janela.
-    mvprintw(linha/4,coluna/4,"%s",texto);                                                      // Imprime nome do campo.
-    noecho();
-    getch();
+    clear();
+    mvprintw(linha / 4, coluna / 4, "%s", texto1);
+    mvprintw(linha / 4 + 2, coluna / 4, "%s", texto2);
+    getstr(campo2);
+    mvprintw(linha / 4 + 4, coluna / 4, "%s", texto3);
+    mvprintw(linha / 4 + 6, coluna / 4, "%s", texto4);
+    mvprintw(linha / 4 + 8, coluna / 4, "%s", texto5);
     echo();
+    campo = getch() - 48;
+    noecho();
+
+    Codigo valorCodigo;
+    try{
+    string stringCodigo = campo2;
+    valorCodigo.setValor(stringCodigo);
+    }
+    catch(invalid_argument &exp){
+        mvprintw(linha/4 + 18,coluna/4,"%s",texto6);                                           // Informa formato incorreto.
+        noecho();                                                                               // Desabilita eco.
+        getch();                                                                                // Leitura de caracter digitado.
+        echo();                                                                                 // Habilita eco.
+        return false;
+    }
+
+    switch (campo) {
+        case 1:
+            if(cntr->descadastrarSessao(valorCodigo)){
+                clear();
+                mvprintw(linha/4,coluna/4,"%s",texto11);                                               // Informa sucesso.
+                noecho();
+                getch();
+                echo();
+                return true;
+            }
+            clear();
+            mvprintw(linha/4 ,coluna/4,"%s",texto12);                                                       // Informa falha.
+            noecho();
+            getch();
+            echo();
+            return false;
+        case 2:
+            return false;
+    }
 }
 
 //--------------------------------------------------------------------------------------------
