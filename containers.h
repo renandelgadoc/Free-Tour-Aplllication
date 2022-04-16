@@ -22,6 +22,7 @@ public:
     bool atualizarSenha(Usuario);
     bool atualizarNome(Usuario);
     bool autenticar(Usuario);
+    Usuario getUsuario(Email);
 };
 
 

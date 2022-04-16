@@ -25,6 +25,10 @@ bool CntrServicoPessoal::atualizarNome(Usuario usuario) {
     return ContainerUsuario::getInstancia()->atualizarNome(usuario);
 }
 
+Usuario CntrServicoPessoal::getUsuario(Email email) {
+    return ContainerUsuario::getInstancia()->getUsuario(email);
+}
+
 bool CntrServicoExcursoes::cadastrarExcursao(Excursao excursao){
     return ContainerExcursao::getInstancia()->incluir(excursao);
 }

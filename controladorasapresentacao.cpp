@@ -94,6 +94,7 @@ bool CntrApresentacaoAutenticacao::autenticar(Email *email){
     char texto3[]="Dado em formato incorreto. Digite algo.";
     char texto4[] ="1. Retornar";
     char texto5[] ="2. Tentar novamente";
+    char texto6[]="Falha na autenticacao. Digite algo.";
 
     // Campos de entrada.
 
@@ -147,7 +148,15 @@ bool CntrApresentacaoAutenticacao::autenticar(Email *email){
     usuario.setEmail(*email);
     usuario.setSenha(senha);
 
-    return (cntrServicoAutenticacao->autenticar(usuario));
+    if (cntrServicoAutenticacao->autenticar(usuario)){
+        return true;
+    };
+    clear();
+    mvprintw(linha/4,coluna/4,"%s",texto6);
+    noecho();
+    getch();
+    echo();
+    return false;
 }
 
 //--------------------------------------------------------------------------------------------
@@ -214,50 +223,32 @@ bool CntrApresentacaoPessoal::executar(Email email){
 
 void CntrApresentacaoPessoal::consultarDadosPessoais(Email email) {
 
-    Usuario* usuario;
+    Usuario usuario;
 
-    usuario->setEmail(email);
+    usuario = cntrServicoPessoal->getUsuario(email);
 
-    char texto7[80] = "Usuario nao encontrado.";
+    char texto1[80] = "Digite algo para retornar... ";
 
     int linha,coluna;
 
     getmaxyx(stdscr,linha,coluna);
 
-    if(cntrServicoPessoal->consultarUsuario(usuario)){
-        string textoNome = "Nome: ";
-        string valorNome = usuario->getNome().getValor();
-        string stringNome = textoNome + valorNome;
-        string textoEmail = "Email: ";
-        string valorEmail = email.getValor();
-        string stringEmail = textoEmail + valorEmail;
-        string textoSenha = "Senha: ";
-        string valorSenha = usuario->getSenha().getValor();
-        string stringSenha = textoSenha + valorSenha;
-        echo();
-        clear();
-
-        char* char_arr4;
-        string str_obj4(stringNome);
-        char_arr4 = &str_obj4[0];
-        char* char_arr5;
-        string str_obj5(stringEmail);
-        char_arr5 = &str_obj5[0];
-        char* char_arr6;
-        string str_obj6(stringSenha);
-        char_arr6 = &str_obj6[0];
-
-        mvprintw(linha/4,coluna/4,"%s",stringNome);
-        mvprintw(linha/4 + 2,coluna/4,"%s",stringEmail);
-        mvprintw(linha/4 + 4,coluna/4,"%s",stringSenha);
-        noecho();
-        getch();
-        echo();
-        return;
-    }
+    string textoNome = "Nome: ";
+    string valorNome = usuario.getNome().getValor();
+    string stringNome = textoNome + valorNome;
+    string textoEmail = "Email: ";
+    string valorEmail = email.getValor();
+    string stringEmail = textoEmail + valorEmail;
+    string textoSenha = "Senha: ";
+    string valorSenha = usuario.getSenha().getValor();
+    string stringSenha = textoSenha + valorSenha;
     echo();
     clear();
-    mvprintw(linha/4,coluna/4,"%s",texto7);
+
+    mvprintw(linha/4,coluna/4,"%s",stringNome.c_str());
+    mvprintw(linha/4 + 2,coluna/4,"%s",stringEmail.c_str());
+    mvprintw(linha/4 + 4,coluna/4,"%s",stringSenha.c_str());
+    mvprintw(linha/4 + 8,coluna/4,"%s",texto1);
     noecho();
     getch();
     echo();

@@ -62,6 +62,7 @@ public:
         virtual bool consultarUsuario(Usuario*) = 0;
         virtual bool atualizarSenha(Usuario) = 0;
         virtual bool atualizarNome(Usuario) = 0;
+        virtual Usuario getUsuario(Email) = 0;
         virtual ~IServicoPessoal(){}
 };
 

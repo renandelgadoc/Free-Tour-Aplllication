@@ -70,6 +70,14 @@ bool ContainerUsuario::autenticar(Usuario usuario) {
     return false;
 }
 
+Usuario ContainerUsuario::getUsuario(Email email){
+    for(list<Usuario>::iterator elemento = container.begin(); elemento != container.end(); elemento++){
+        if (elemento->getEmail().getValor() == email.getValor()){
+            return *elemento;
+        }
+}
+}
+
 // Excursao =-=-=-=-=-=-=
 
 ContainerExcursao* ContainerExcursao::getInstancia() {
