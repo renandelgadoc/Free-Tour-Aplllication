@@ -5,7 +5,7 @@
 #include "entidades.h"
 #include "interfaces.h"
 #include "containers.h"
-
+#include <list>
 
 
 //--------------------------------------------------------------------------------------------
@@ -39,6 +39,7 @@ private:
 public:
     bool cadastrarExcursao(Excursao);
     bool descadastrarExcursao(Codigo);
+    list<Excursao> getExcursoes();
     bool autenticarExcursao(Codigo);
     bool cadastrarAvaliacao(Avaliacao);
     bool descadastrarAvaliacao(Codigo);

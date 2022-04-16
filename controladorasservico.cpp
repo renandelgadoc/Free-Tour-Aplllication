@@ -41,6 +41,10 @@ bool CntrServicoExcursoes::autenticarExcursao(Codigo codigo){
     return ContainerExcursao::getInstancia()->autenticar(codigo);
 }
 
+list<Excursao> CntrServicoExcursoes::getExcursoes() {
+    return ContainerExcursao::getInstancia()->getExcursoes();
+}
+
 bool CntrServicoExcursoes::cadastrarAvaliacao(Avaliacao avaliacao){
     return ContainerAvaliacao::getInstancia()->incluir(avaliacao);
 }

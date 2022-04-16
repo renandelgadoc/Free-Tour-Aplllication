@@ -147,6 +147,10 @@ bool ContainerExcursao::autenticar(Codigo codigo) {
     return false;
 }
 
+list<Excursao> ContainerExcursao::getExcursoes() {
+    return this->container;
+}
+
 // Sessao =-=-=-=-=-=-=
 
 ContainerSessao* ContainerSessao::getInstancia() {

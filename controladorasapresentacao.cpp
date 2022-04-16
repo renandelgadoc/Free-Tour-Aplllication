@@ -511,7 +511,7 @@ void CntrApresentacaoExcursoes::executar(){
         echo();
 
         switch(campo){
-            case 1: consultarExcursao();
+            case 1: listarExcursoes();
                     break;
             case 2: apresentar = false;
                     break;
@@ -562,7 +562,7 @@ void CntrApresentacaoExcursoes::executar(Email){
                     break;
             case 2: descadastrarExcursao();
                     break;
-            case 3: consultarExcursao();
+            case 3: listarExcursoes();
                     break;
             case 4: apresentar = false;
                     break;
@@ -740,15 +740,51 @@ bool CntrApresentacaoExcursoes::descadastrarExcursao(){
 
 //--------------------------------------------------------------------------------------------
 
-void CntrApresentacaoExcursoes::consultarExcursao(){
+void CntrApresentacaoExcursoes::listarExcursoes() {
+
+    string texto1 = ". ";
+    char texto2[80] = "Digite o indice da excursao que deseja acessar: ";
+    char texto3[80] = "indice nao existente. Digite algo...";
+
+    list<Excursao> excursoes = cntr->getExcursoes();
+
+    int linha, coluna, i, j;
+    char campo[10];
+    getmaxyx(stdscr, linha, coluna);
+    clear();
+
+    i = 0;
+    j = 1;
+
+for(list<Excursao>::iterator elemento = excursoes.begin(); elemento != excursoes.end(); elemento++){
+
+    mvprintw(linha/4 + i,coluna/4,"%s", (to_string(j) + texto1 + elemento->getTitulo().getValor()).c_str());
+    i+=2;
+    j+=1;
+}
+
+    echo();
+    mvprintw(linha/4 + i,coluna/4,"%s", texto2);
+    getstr(campo);
+
+    int indice = stoi(campo);
+
+
+    auto iterator = next(excursoes.begin(), (indice - 1));
+    consultarExcursao(*iterator);
+
+
+}
+
+//--------------------------------------------------------------------------------------------
+
+
+void CntrApresentacaoExcursoes::consultarExcursao(Excursao excursao){
 
     char texto1[] ="1. Cadastrar Avaliacao ";
     char texto2[] ="2. Descadastrar Avaliacao ";
     char texto3[] ="3. Cadastrar Sessao ";
     char texto4[] ="4. Desadastrar Sessao ";
-    char texto5[] = "Preencha o seguinte campo";
-    char texto6[] = "Codigo           :";
-    char texto7[] = "Excursao invalida. Digite algo...";
     char texto8[] ="5. Retornar";
 
     int campo;
@@ -758,62 +794,39 @@ void CntrApresentacaoExcursoes::consultarExcursao(){
 
     getmaxyx(stdscr,linha,coluna);                                                              // Armazena quantidade de linhas e colunas.
 
-    echo();                                                                                     // Habilita eco.
-
     bool apresentar = true;                                                                     // Controle de laço.
 
-    echo();                                                                                     // Habilita eco.
+    noecho();                                                                                     // desabilita eco.
 
     clear();
-    mvprintw(linha / 4, coluna / 4, "%s", texto5);
-    mvprintw(linha / 4 + 2, coluna / 4, "%s", texto6);
-    getstr(campo2);
 
-    Codigo valorCodigo;
-    try{
-    string stringCodigo = campo2;
-    valorCodigo.setValor(stringCodigo);
-    }
-    catch(invalid_argument &exp){
+
+    while(apresentar) {
         clear();
-        mvprintw(linha/4 + 18,coluna/4,"%s",texto7);                                           // Informa formato incorreto.
-        noecho();                                                                               // Desabilita eco.
-        getch();                                                                                // Leitura de caracter digitado.
-        echo();                                                                                 // Habilita eco.
-        return;
-    }
+        mvprintw(linha / 4 - 2, coluna / 4, "%s", excursao.getTitulo().getValor().c_str());
+        mvprintw(linha / 4, coluna / 4, "%s", texto1);
+        mvprintw(linha / 4 + 2, coluna / 4, "%s", texto2);
+        mvprintw(linha / 4 + 4, coluna / 4, "%s", texto3);
+        mvprintw(linha / 4 + 6, coluna / 4, "%s", texto4);
+        mvprintw(linha / 4 + 12, coluna / 4, "%s", texto8);
+        noecho();
+        campo = getch() - 48;
+        echo();
 
-    if(cntr->autenticarExcursao(valorCodigo)){
-        while(apresentar) {
-            clear();
-            mvprintw(linha / 4, coluna / 4, "%s", texto1);
-            mvprintw(linha / 4 + 2, coluna / 4, "%s", texto2);
-            mvprintw(linha / 4 + 4, coluna / 4, "%s", texto3);
-            mvprintw(linha / 4 + 6, coluna / 4, "%s", texto4);
-            mvprintw(linha / 4 + 12, coluna / 4, "%s", texto8);
-            noecho();
-            campo = getch() - 48;
-            echo();
-
-            switch (campo) {
-                case 1: cadastrarAvaliacao();
-                    break;
-                case 2: descadastrarAvaliacao();
-                    break;
-                case 3: cadastrarSessao();
-                    break;
-                case 4: descadastrarSessao();
-                    break;
-                case 5: return;
-            }
+        switch (campo) {
+            case 1: cadastrarAvaliacao();
+                break;
+            case 2: descadastrarAvaliacao();
+                break;
+            case 3: cadastrarSessao();
+                break;
+            case 4: descadastrarSessao();
+                break;
+            case 5: return;
         }
     }
-    mvprintw(linha/4 + 18,coluna/4,"%s",texto7);                                           // Informa formato incorreto.
-    noecho();                                                                               // Desabilita eco.
-    getch();                                                                                // Leitura de caracter digitado.
-    echo();                                                                                 // Habilita eco.
-    return;
 }
+
 //--------------------------------------------------------------------------------------------
 
 void CntrApresentacaoExcursoes::cadastrarAvaliacao() {

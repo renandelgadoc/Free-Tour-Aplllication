@@ -3,6 +3,7 @@
 
 #include "dominios.h"
 #include "entidades.h"
+#include <list>
 
 //--------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------
@@ -71,6 +72,7 @@ public:
         virtual bool cadastrarExcursao(Excursao) = 0;
         virtual bool descadastrarExcursao(Codigo) = 0;
         virtual bool autenticarExcursao(Codigo) = 0;
+        virtual list<Excursao> getExcursoes() = 0;
         virtual bool cadastrarAvaliacao(Avaliacao) = 0;
         virtual bool descadastrarAvaliacao(Codigo) = 0;
         virtual bool cadastrarSessao(Sessao) = 0;

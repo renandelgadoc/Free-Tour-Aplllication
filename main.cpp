@@ -2,7 +2,7 @@
 #include <stdexcept>
 #include <iostream>
 
-#include "curses.h"
+#include <ncurses.h>
 #include "dominios.h"
 #include "interfaces.h"
 #include "controladorasapresentacao.h"

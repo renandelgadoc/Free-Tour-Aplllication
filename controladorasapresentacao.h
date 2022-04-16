@@ -2,7 +2,7 @@
 #define CONTROLADORASAPRESENTACAO_H_INCLUDED
 
 #include <string.h>
-#include "curses.h"
+#include <ncurses.h>
 #include "dominios.h"
 #include "entidades.h"
 #include "interfaces.h"
@@ -89,7 +89,8 @@ class CntrApresentacaoExcursoes: public IApresentacaoExcursoes{
         void cadastrarExcursao();
         bool descadastrarExcursao();
         bool autenticarExcursao();
-        void consultarExcursao();
+        void listarExcursoes();
+        void consultarExcursao(Excursao);
         void cadastrarAvaliacao() ;
         bool descadastrarAvaliacao() ;
         void cadastrarSessao() ;

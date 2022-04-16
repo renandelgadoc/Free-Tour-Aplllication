@@ -37,6 +37,7 @@ public:
     bool pesquisar(Excursao*);
     bool atualizar(Excursao);
     bool autenticar(Codigo);
+    list<Excursao> getExcursoes();
 };
 
 
