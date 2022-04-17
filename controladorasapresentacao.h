@@ -84,21 +84,22 @@ inline void CntrApresentacaoPessoal::setCntrServicoExcursoes(IServicoExcursoes *
 //--------------------------------------------------------------------------------------------
 
 class CntrApresentacaoExcursoes: public IApresentacaoExcursoes{
-    private:
-        IServicoExcursoes *cntr;
-        void cadastrarExcursao();
-        bool descadastrarExcursao();
-        bool autenticarExcursao();
-        void listarExcursoes();
-        void consultarExcursao(Excursao);
-        void cadastrarAvaliacao() ;
-        bool descadastrarAvaliacao() ;
-        void cadastrarSessao() ;
-        bool descadastrarSessao() ;
-    public:
-        void executar();
-        void executar(Email);
-        void setCntrServicoExcursoes(IServicoExcursoes*);
+private:
+    IServicoExcursoes *cntr;
+    void cadastrarExcursao();
+    bool descadastrarExcursao();
+    bool autenticarExcursao();
+    void listarExcursoes();
+    void consultarExcursao(Excursao*);
+    void cadastrarAvaliacao(Excursao*) ;
+    bool descadastrarAvaliacao(Codigo) ;
+    void listarAvaliacoes(Codigo);
+    void cadastrarSessao() ;
+    bool descadastrarSessao() ;
+public:
+    void executar();
+    void executar(Email);
+    void setCntrServicoExcursoes(IServicoExcursoes*);
 };
 
 inline void CntrApresentacaoExcursoes::setCntrServicoExcursoes(IServicoExcursoes *cntr){

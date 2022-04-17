@@ -53,16 +53,34 @@ public:
     bool atualizar(Sessao);
 };
 
-
 class ContainerAvaliacao{
 private:
     list<Avaliacao> container;
-    static ContainerAvaliacao *instancia;
+    Excursao excursao;
 public:
-    static ContainerAvaliacao* getInstancia();
+    ContainerAvaliacao(){};
     bool incluir(Avaliacao);
     bool remover(Codigo);
     bool pesquisar(Avaliacao*);
     bool atualizar(Avaliacao);
+    Excursao getExcursao() const;
+    list<Avaliacao> getAvaliacoes();
+    void setExcursao(Excursao);
 };
+
+inline Excursao ContainerAvaliacao::getExcursao() const {
+    return excursao;
+}
+
+class ContainerListaAvaliacao{
+private:
+    list<ContainerAvaliacao> container;
+    static ContainerListaAvaliacao *instancia;
+public:
+    static ContainerListaAvaliacao* getInstancia();
+    bool incluir(Excursao);
+    bool remover(Codigo);
+    ContainerAvaliacao* getContainerAvaliacao(Codigo);
+};
+
 #endif //TP1T2_CONTAINERS_H

@@ -205,13 +205,45 @@ bool ContainerSessao::atualizar(Sessao sessao){
     return false;
 }
 
-// Avaliacao =-=-=-=-=-=-=
+// ListaAvaliacao =-=-=-=-=-=-=
 
-ContainerAvaliacao* ContainerAvaliacao::getInstancia() {
+ContainerListaAvaliacao* ContainerListaAvaliacao::getInstancia() {
     if (instancia == nullptr)
-        instancia = new ContainerAvaliacao();
+        instancia = new ContainerListaAvaliacao();
     return instancia;
 }
+
+bool ContainerListaAvaliacao::incluir(Excursao excursao){
+
+    for(list<ContainerAvaliacao>::iterator elemento = container.begin(); elemento != container.end(); elemento++){
+        if (elemento->getExcursao().getCodigo().getValor() == excursao.getCodigo().getValor()){
+            return false;
+        }
+    }
+    ContainerAvaliacao containerAvaliacao;
+    containerAvaliacao.setExcursao(excursao);
+    container.push_back(containerAvaliacao);
+    return true;
+}
+
+bool ContainerListaAvaliacao::remover(Codigo codigo){
+    for(list<ContainerAvaliacao>::iterator elemento = container.begin(); elemento != container.end(); elemento++){
+        if (elemento->getExcursao().getCodigo().getValor() == codigo.getValor()){
+            container.erase(elemento);
+            return true;
+        }
+    }
+    return false;
+}
+
+ContainerAvaliacao* ContainerListaAvaliacao::getContainerAvaliacao(Codigo codigo) {
+    for(list<ContainerAvaliacao>::iterator elemento = container.begin(); elemento != container.end(); elemento++){
+        if (elemento->getExcursao().getCodigo().getValor() == codigo.getValor())
+            return &*elemento;
+    }
+}
+
+// Avaliacao
 
 bool ContainerAvaliacao::incluir(Avaliacao avaliacao){
     for(list<Avaliacao>::iterator elemento = container.begin(); elemento != container.end(); elemento++){
@@ -219,7 +251,7 @@ bool ContainerAvaliacao::incluir(Avaliacao avaliacao){
             return false;
         }
     }
-    container.push_back(avaliacao);                               // Incluir objeto.
+    container.push_back(avaliacao);
     return true;
 }
 
@@ -256,3 +288,12 @@ bool ContainerAvaliacao::atualizar(Avaliacao avaliacao){
     }
     return false;
 }
+
+list<Avaliacao> ContainerAvaliacao::getAvaliacoes() {
+    return this->container;
+}
+
+void ContainerAvaliacao::setExcursao(Excursao excursao) {
+    this->excursao = excursao;
+}
+

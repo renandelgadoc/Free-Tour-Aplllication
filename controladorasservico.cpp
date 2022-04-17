@@ -45,12 +45,24 @@ list<Excursao> CntrServicoExcursoes::getExcursoes() {
     return ContainerExcursao::getInstancia()->getExcursoes();
 }
 
-bool CntrServicoExcursoes::cadastrarAvaliacao(Avaliacao avaliacao){
-    return ContainerAvaliacao::getInstancia()->incluir(avaliacao);
+bool CntrServicoExcursoes::criarListaAvaliacao(Excursao excursao) {
+    return ContainerListaAvaliacao::getInstancia()->incluir(excursao);
 }
 
-bool CntrServicoExcursoes::descadastrarAvaliacao(Codigo codigo){
-    return ContainerAvaliacao::getInstancia()->remover(codigo);
+bool CntrServicoExcursoes::removerListaAvaliacao(Codigo codigo) {
+    return ContainerListaAvaliacao::getInstancia()->remover(codigo);
+}
+
+list<Avaliacao> CntrServicoExcursoes::getAvaliacoes(Codigo codigo) {
+    return ContainerListaAvaliacao::getInstancia()->getContainerAvaliacao(codigo)->getAvaliacoes();
+}
+
+bool CntrServicoExcursoes::cadastrarAvaliacao(Avaliacao avaliacao, Codigo codigo){
+    return ContainerListaAvaliacao::getInstancia()->getContainerAvaliacao(codigo)->incluir(avaliacao);
+}
+
+bool CntrServicoExcursoes::descadastrarAvaliacao(Codigo codigoAvaliacao, Codigo codigoExcursao){
+    return ContainerListaAvaliacao::getInstancia()->getContainerAvaliacao(codigoExcursao)->remover(codigoAvaliacao);
 }
 
 bool CntrServicoExcursoes::cadastrarSessao(Sessao sessao){

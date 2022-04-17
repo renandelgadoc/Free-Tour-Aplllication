@@ -16,7 +16,7 @@ using namespace std;
     ContainerUsuario* ContainerUsuario::instancia = nullptr;
     ContainerExcursao* ContainerExcursao::instancia = nullptr;
     ContainerSessao* ContainerSessao::instancia = nullptr;
-    ContainerAvaliacao* ContainerAvaliacao::instancia = nullptr;
+    ContainerListaAvaliacao* ContainerListaAvaliacao::instancia = nullptr;
 
 int main(){
 

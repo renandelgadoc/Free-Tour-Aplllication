@@ -1,5 +1,7 @@
 #include "controladorasapresentacao.h"
 
+#include <utility>
+
 //--------------------------------------------------------------------------------------------
 // Implementações dos métodos de classes controladoras.
 
@@ -658,6 +660,9 @@ void CntrApresentacaoExcursoes::cadastrarExcursao(){
     string str_obj(textoCodigo);
     char_arr = &str_obj[0];
     if(cntr->cadastrarExcursao(excursao)){
+
+        cntr->criarListaAvaliacao(excursao);
+
         mvprintw(linha/4 + 14,coluna/4,"%s",char_arr);
         mvprintw(linha/4 + 18,coluna/4,"%s",texto8);                                               // Informa sucesso.
         mvprintw(linha/4 + 16,coluna/4,"%s",texto10);
@@ -720,6 +725,9 @@ bool CntrApresentacaoExcursoes::descadastrarExcursao(){
     switch (campo) {
         case 1:
             if(cntr->descadastrarExcursao(valorCodigo)){
+
+                cntr->removerListaAvaliacao(valorCodigo);
+
                 clear();
                 mvprintw(linha/4,coluna/4,"%s",texto11);                                               // Informa sucesso.
                 noecho();
@@ -762,30 +770,38 @@ for(list<Excursao>::iterator elemento = excursoes.begin(); elemento != excursoes
     i+=2;
     j+=1;
 }
+    int size = excursoes.size();
 
     echo();
-    mvprintw(linha/4 + i,coluna/4,"%s", texto2);
+    mvprintw(linha/4 + i + 2,coluna/4,"%s", texto2);
     getstr(campo);
 
     int indice = stoi(campo);
 
-
-    auto iterator = next(excursoes.begin(), (indice - 1));
-    consultarExcursao(*iterator);
-
+    if (indice <= size) {
+        auto iterator = next(excursoes.begin(), (indice - 1));
+        consultarExcursao(&*iterator);
+    }
+    clear();
+    echo();
+    mvprintw(linha/4 + i + 2,coluna/4,"%s", texto3);
+    getch();
+    noecho();
 
 }
 
 //--------------------------------------------------------------------------------------------
 
 
-void CntrApresentacaoExcursoes::consultarExcursao(Excursao excursao){
+void CntrApresentacaoExcursoes::consultarExcursao(Excursao* excursao){
 
     char texto1[] ="1. Cadastrar Avaliacao ";
     char texto2[] ="2. Descadastrar Avaliacao ";
-    char texto3[] ="3. Cadastrar Sessao ";
-    char texto4[] ="4. Desadastrar Sessao ";
-    char texto8[] ="5. Retornar";
+    char texto3[] ="3. Ver Avaliacoes ";
+    char texto4[] ="4. Cadastrar Sessao ";
+    char texto5[] ="5. Desadastrar Sessao ";
+    char texto6[] ="6. Ver sessoes ";
+    char texto8[] ="7. Retornar";
 
     int campo;
     char campo2[80];                                                                                  // Campo de entrada.
@@ -803,33 +819,45 @@ void CntrApresentacaoExcursoes::consultarExcursao(Excursao excursao){
 
     while(apresentar) {
         clear();
-        mvprintw(linha / 4 - 2, coluna / 4, "%s", excursao.getTitulo().getValor().c_str());
-        mvprintw(linha / 4, coluna / 4, "%s", texto1);
-        mvprintw(linha / 4 + 2, coluna / 4, "%s", texto2);
-        mvprintw(linha / 4 + 4, coluna / 4, "%s", texto3);
-        mvprintw(linha / 4 + 6, coluna / 4, "%s", texto4);
-        mvprintw(linha / 4 + 12, coluna / 4, "%s", texto8);
+        mvprintw(linha / 4 - 6, coluna / 4, "%s", excursao->getTitulo().getValor().c_str());
+        mvprintw(linha / 4 - 4, coluna / 4, "%s", excursao->getCidade().getValor().c_str());
+        mvprintw(linha / 4 - 2, coluna / 4, "%s", (to_string(excursao->getDuracao().getValor()) + "minutos").c_str());
+        mvprintw(linha / 4 , coluna / 4, "%s", excursao->getEndereco().getValor().c_str());
+        mvprintw(linha / 4 + 2, coluna / 4, "%s", excursao->getDescricao().getValor().c_str());
+        mvprintw(linha / 4 + 4, coluna / 4, "%s", to_string(excursao->getNota().getValor()).c_str());
+        mvprintw(linha / 4 + 6, coluna / 4, "%s", texto1);
+        mvprintw(linha / 4 + 8, coluna / 4, "%s", texto2);
+        mvprintw(linha / 4 + 10, coluna / 4, "%s", texto3);
+        mvprintw(linha / 4 + 12, coluna / 4, "%s", texto4);
+        mvprintw(linha / 4 + 14, coluna / 4, "%s", texto5);
+        mvprintw(linha / 4 + 16, coluna / 4, "%s", texto6);
+        mvprintw(linha / 4 + 18, coluna / 4, "%s", texto8);
         noecho();
         campo = getch() - 48;
         echo();
 
         switch (campo) {
-            case 1: cadastrarAvaliacao();
+            case 1:
+                cadastrarAvaliacao(excursao);
                 break;
-            case 2: descadastrarAvaliacao();
+            case 2:
+                descadastrarAvaliacao(excursao->getCodigo());
                 break;
-            case 3: cadastrarSessao();
+            case 3:
+                listarAvaliacoes(excursao->getCodigo());
                 break;
-            case 4: descadastrarSessao();
+            case 4: cadastrarSessao();
                 break;
-            case 5: return;
+            case 5: descadastrarSessao();
+                break;
+            case 7: return;
         }
     }
 }
 
 //--------------------------------------------------------------------------------------------
 
-void CntrApresentacaoExcursoes::cadastrarAvaliacao() {
+void CntrApresentacaoExcursoes::cadastrarAvaliacao(Excursao* excursao) {
 
     char texto1[] ="Preencha os seguintes campos: ";
     char texto2[] ="Nota            :";
@@ -845,7 +873,7 @@ void CntrApresentacaoExcursoes::cadastrarAvaliacao() {
 
     Nota nota;
     Descricao descricao;
-    Codigo codigo;
+    Codigo codigoAvaliacao;
 
     int linha,coluna;                                                                           // Dados sobre tamanho da tela.
 
@@ -862,10 +890,7 @@ void CntrApresentacaoExcursoes::cadastrarAvaliacao() {
     getstr(campo2);                                                                             // Lê valor do campo.
 
     try{
-        int inteiroNota;
-        stringstream converteNota(campo1);
-        converteNota >> inteiroNota;
-        nota.setValor(inteiroNota);
+        nota.setValor(stoi(campo1));
         descricao.setValor(string(campo2));
     }
     catch(invalid_argument &exp){
@@ -884,16 +909,17 @@ void CntrApresentacaoExcursoes::cadastrarAvaliacao() {
 
     avaliacao.setNota(nota);
     avaliacao.setDescricao(descricao);
-    avaliacao.setCodigo(codigo);
+    avaliacao.setCodigo(codigoAvaliacao);
 
-    string codigoAvaliacao = avaliacao.getCodigo().getValor();
-    string texto11 = "Codigo da Avaliacao: ";
-    string textoCodigo = texto11 + codigoAvaliacao;
-    char* char_arr;
-    string str_obj(textoCodigo);
-    char_arr = &str_obj[0];
-    if(cntr->cadastrarAvaliacao(avaliacao)){
-        mvprintw(linha/4 + 14,coluna/4,"%s",char_arr);
+    string texto11 = "Codigo da Avaliacao: " + codigoAvaliacao.getValor();
+
+    if(cntr->cadastrarAvaliacao(avaliacao, excursao->getCodigo())) {
+
+
+        excursao->getNota().setValor(nota.getValor());
+        mvprintw(linha/4 +20,coluna/4,"%s",  to_string(excursao->getNota().getValor()).c_str() );
+
+        mvprintw(linha/4 + 14,coluna/4,"%s",texto11.c_str());
         mvprintw(linha/4 + 18,coluna/4,"%s",texto5);                                               // Informa sucesso.
         mvprintw(linha/4 + 16,coluna/4,"%s",texto7);
         noecho();
@@ -912,7 +938,7 @@ void CntrApresentacaoExcursoes::cadastrarAvaliacao() {
 
 //--------------------------------------------------------------------------------------------
 
-bool CntrApresentacaoExcursoes::descadastrarAvaliacao() {
+bool CntrApresentacaoExcursoes::descadastrarAvaliacao(Codigo codigoExcursao) {
 
     char texto1[] = "Preencha o seguinte campo";
     char texto2[] = "Codigo           :";
@@ -939,10 +965,10 @@ bool CntrApresentacaoExcursoes::descadastrarAvaliacao() {
     campo = getch() - 48;
     noecho();
 
-    Codigo valorCodigo;
+    Codigo codigoAvaliacao;
     try{
     string stringCodigo = campo2;
-    valorCodigo.setValor(stringCodigo);
+        codigoAvaliacao.setValor(stringCodigo);
     }
     catch(invalid_argument &exp){
         mvprintw(linha/4 + 18,coluna/4,"%s",texto6);                                           // Informa formato incorreto.
@@ -954,7 +980,7 @@ bool CntrApresentacaoExcursoes::descadastrarAvaliacao() {
 
     switch (campo) {
         case 1:
-            if(cntr->descadastrarAvaliacao(valorCodigo)){
+            if(cntr->descadastrarAvaliacao(codigoAvaliacao, codigoExcursao)){
                 clear();
                 mvprintw(linha/4,coluna/4,"%s",texto11);                                               // Informa sucesso.
                 noecho();
@@ -971,6 +997,46 @@ bool CntrApresentacaoExcursoes::descadastrarAvaliacao() {
         case 2:
             return false;
     }
+}
+
+//--------------------------------------------------------------------------------------------
+
+void CntrApresentacaoExcursoes::listarAvaliacoes(Codigo codigoExcursao) {
+
+    list<Avaliacao> avaliacoes = cntr->getAvaliacoes(codigoExcursao);
+
+    string texto1 = "Nota: ";
+    char texto2[] = "Digite algo para retornar...";
+    string texto3 = "Descricao: ";
+
+    int linha, coluna, i, j;
+    char campo[10];
+    getmaxyx(stdscr, linha, coluna);
+    clear();
+
+    i = -2;
+    j = -6;
+
+    int size =  avaliacoes.size();
+
+    for(list<Avaliacao>::iterator elemento = avaliacoes.begin(); elemento != avaliacoes.end(); elemento++){
+
+        mvprintw(linha/10 + i,coluna/10 + j,"%s", (texto1 + to_string(elemento->getNota().getValor())).c_str());
+        i+=2;
+        mvprintw(linha/10 + i,coluna/10 + j,"%s", (texto3 + elemento->getDescricao().getValor()).c_str());
+        i+=4;
+
+        if( i == 34){
+            i = -2;
+            j += 44;
+        }
+    }
+
+    echo();
+    mvprintw(linha - 2,coluna/4,"%s", texto2);
+    getch();
+    noecho();
+
 }
 
 //--------------------------------------------------------------------------------------------

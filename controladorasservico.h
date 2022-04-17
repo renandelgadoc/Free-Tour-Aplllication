@@ -41,8 +41,11 @@ public:
     bool descadastrarExcursao(Codigo);
     list<Excursao> getExcursoes();
     bool autenticarExcursao(Codigo);
-    bool cadastrarAvaliacao(Avaliacao);
-    bool descadastrarAvaliacao(Codigo);
+    bool criarListaAvaliacao(Excursao);
+    bool removerListaAvaliacao(Codigo);
+    list<Avaliacao> getAvaliacoes(Codigo);
+    bool cadastrarAvaliacao(Avaliacao,Codigo);
+    bool descadastrarAvaliacao(Codigo, Codigo);
     bool cadastrarSessao(Sessao);
     bool descadastrarSessao(Codigo);
 };
