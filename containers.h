@@ -44,14 +44,21 @@ public:
 class ContainerSessao{
 private:
     list<Sessao> container;
-    static ContainerSessao *instancia;
+    Excursao excursao;
 public:
-    static ContainerSessao* getInstancia();
+    ContainerSessao(){};
     bool incluir(Sessao);
     bool remover(Codigo);
     bool pesquisar(Sessao*);
     bool atualizar(Sessao);
+    Excursao getExcursao() const;
+    list<Sessao> getSessoes();
+    void setExcursao(Excursao);
 };
+
+inline Excursao ContainerSessao::getExcursao() const {
+    return excursao;
+}
 
 class ContainerAvaliacao{
 private:
@@ -81,6 +88,17 @@ public:
     bool incluir(Excursao);
     bool remover(Codigo);
     ContainerAvaliacao* getContainerAvaliacao(Codigo);
+};
+
+class ContainerListaSessao{
+private:
+    list<ContainerSessao> container;
+    static ContainerListaSessao *instancia;
+public:
+    static ContainerListaSessao* getInstancia();
+    bool incluir(Excursao);
+    bool remover(Codigo);
+    ContainerSessao* getContainerSessao(Codigo);
 };
 
 #endif //TP1T2_CONTAINERS_H

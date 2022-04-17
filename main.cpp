@@ -2,7 +2,7 @@
 #include <stdexcept>
 #include <iostream>
 
-#include <ncurses.h>
+#include "curses.h"
 #include "dominios.h"
 #include "interfaces.h"
 #include "controladorasapresentacao.h"
@@ -15,7 +15,7 @@ using namespace std;
 
     ContainerUsuario* ContainerUsuario::instancia = nullptr;
     ContainerExcursao* ContainerExcursao::instancia = nullptr;
-    ContainerSessao* ContainerSessao::instancia = nullptr;
+    ContainerListaSessao* ContainerListaSessao::instancia = nullptr;
     ContainerListaAvaliacao* ContainerListaAvaliacao::instancia = nullptr;
 
 int main(){

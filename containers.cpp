@@ -153,12 +153,6 @@ list<Excursao> ContainerExcursao::getExcursoes() {
 
 // Sessao =-=-=-=-=-=-=
 
-ContainerSessao* ContainerSessao::getInstancia() {
-    if (instancia == nullptr)
-        instancia = new ContainerSessao();
-    return instancia;
-}
-
 bool ContainerSessao::incluir(Sessao sessao){
     for(list<Sessao>::iterator elemento = container.begin(); elemento != container.end(); elemento++){
         if (elemento->getCodigo().getValor() == sessao.getCodigo().getValor()){
@@ -203,6 +197,52 @@ bool ContainerSessao::atualizar(Sessao sessao){
         }
     }
     return false;
+}
+
+// ListaSessao =-=-=-=-=-=-=
+
+ContainerListaSessao* ContainerListaSessao::getInstancia() {
+    if (instancia == nullptr)
+        instancia = new ContainerListaSessao();
+    return instancia;
+}
+
+bool ContainerListaSessao::incluir(Excursao excursao){
+
+    for(list<ContainerSessao>::iterator elemento = container.begin(); elemento != container.end(); elemento++){
+        if (elemento->getExcursao().getCodigo().getValor() == excursao.getCodigo().getValor()){
+            return false;
+        }
+    }
+    ContainerSessao containerSessao;
+    containerSessao.setExcursao(excursao);
+    container.push_back(containerSessao);
+    return true;
+}
+
+bool ContainerListaSessao::remover(Codigo codigo){
+    for(list<ContainerSessao>::iterator elemento = container.begin(); elemento != container.end(); elemento++){
+        if (elemento->getExcursao().getCodigo().getValor() == codigo.getValor()){
+            container.erase(elemento);
+            return true;
+        }
+    }
+    return false;
+}
+
+ContainerSessao* ContainerListaSessao::getContainerSessao(Codigo codigo) {
+    for(list<ContainerSessao>::iterator elemento = container.begin(); elemento != container.end(); elemento++){
+        if (elemento->getExcursao().getCodigo().getValor() == codigo.getValor())
+            return &*elemento;
+    }
+}
+
+list<Sessao> ContainerSessao::getSessoes() {
+    return this->container;
+}
+
+void ContainerSessao::setExcursao(Excursao excursao) {
+    this->excursao = excursao;
 }
 
 // ListaAvaliacao =-=-=-=-=-=-=

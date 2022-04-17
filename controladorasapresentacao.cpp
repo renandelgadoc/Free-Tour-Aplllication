@@ -662,6 +662,7 @@ void CntrApresentacaoExcursoes::cadastrarExcursao(){
     if(cntr->cadastrarExcursao(excursao)){
 
         cntr->criarListaAvaliacao(excursao);
+        cntr->criarListaSessao(excursao);
 
         mvprintw(linha/4 + 14,coluna/4,"%s",char_arr);
         mvprintw(linha/4 + 18,coluna/4,"%s",texto8);                                               // Informa sucesso.
@@ -727,6 +728,7 @@ bool CntrApresentacaoExcursoes::descadastrarExcursao(){
             if(cntr->descadastrarExcursao(valorCodigo)){
 
                 cntr->removerListaAvaliacao(valorCodigo);
+                cntr->removerListaSessao(valorCodigo);
 
                 clear();
                 mvprintw(linha/4,coluna/4,"%s",texto11);                                               // Informa sucesso.
@@ -846,9 +848,12 @@ void CntrApresentacaoExcursoes::consultarExcursao(Excursao* excursao){
             case 3:
                 listarAvaliacoes(excursao->getCodigo());
                 break;
-            case 4: cadastrarSessao();
+            case 4: cadastrarSessao(excursao);
                 break;
-            case 5: descadastrarSessao();
+            case 5: descadastrarSessao(excursao->getCodigo());
+                break;
+            case 6:
+                listarSessoes(excursao->getCodigo());
                 break;
             case 7: return;
         }
@@ -1041,7 +1046,7 @@ void CntrApresentacaoExcursoes::listarAvaliacoes(Codigo codigoExcursao) {
 
 //--------------------------------------------------------------------------------------------
 
-void CntrApresentacaoExcursoes::cadastrarSessao() {
+void CntrApresentacaoExcursoes::cadastrarSessao(Excursao* excursao) {
 
     char texto1[] ="Preencha os seguintes campos: ";
     char texto2[] ="Data            :";
@@ -1059,7 +1064,7 @@ void CntrApresentacaoExcursoes::cadastrarSessao() {
     Data data;
     Horario horario;
     Idioma idioma;
-    Codigo codigo;
+    Codigo codigoSessao;
 
     int linha,coluna;                                                                           // Dados sobre tamanho da tela.
 
@@ -1099,16 +1104,13 @@ void CntrApresentacaoExcursoes::cadastrarSessao() {
     sessao.setData(data);
     sessao.setHorario(horario);
     sessao.setIdioma(idioma);
-    sessao.setCodigo(codigo);
+    sessao.setCodigo(codigoSessao);
 
-    string codigoSessao = sessao.getCodigo().getValor();
+    string stringCodigoSessao = sessao.getCodigo().getValor();
     string texto11 = "Codigo da Sessao: ";
-    string textoCodigo = texto11 + codigoSessao;
-    char* char_arr;
-    string str_obj(textoCodigo);
-    char_arr = &str_obj[0];
-    if(cntr->cadastrarSessao(sessao)){
-        mvprintw(linha/4 + 14,coluna/4,"%s",char_arr);
+    string textoCodigo = texto11 + stringCodigoSessao;
+    if(cntr->cadastrarSessao(sessao, excursao->getCodigo())){
+        mvprintw(linha/4 + 14,coluna/4,"%s",textoCodigo.c_str());
         mvprintw(linha/4 + 18,coluna/4,"%s",texto6);                                               // Informa sucesso.
         mvprintw(linha/4 + 16,coluna/4,"%s",texto8);
         noecho();
@@ -1127,7 +1129,7 @@ void CntrApresentacaoExcursoes::cadastrarSessao() {
 
 //--------------------------------------------------------------------------------------------
 
-bool CntrApresentacaoExcursoes::descadastrarSessao() {
+bool CntrApresentacaoExcursoes::descadastrarSessao(Codigo codigoExcursao) {
 
     char texto1[] = "Preencha o seguinte campo";
     char texto2[] = "Codigo           :";
@@ -1154,10 +1156,10 @@ bool CntrApresentacaoExcursoes::descadastrarSessao() {
     campo = getch() - 48;
     noecho();
 
-    Codigo valorCodigo;
+    Codigo codigoSessao;
     try{
     string stringCodigo = campo2;
-    valorCodigo.setValor(stringCodigo);
+    codigoSessao.setValor(stringCodigo);
     }
     catch(invalid_argument &exp){
         mvprintw(linha/4 + 18,coluna/4,"%s",texto6);                                           // Informa formato incorreto.
@@ -1169,7 +1171,7 @@ bool CntrApresentacaoExcursoes::descadastrarSessao() {
 
     switch (campo) {
         case 1:
-            if(cntr->descadastrarSessao(valorCodigo)){
+            if(cntr->descadastrarSessao(codigoSessao, codigoExcursao)){
                 clear();
                 mvprintw(linha/4,coluna/4,"%s",texto11);                                               // Informa sucesso.
                 noecho();
@@ -1188,4 +1190,46 @@ bool CntrApresentacaoExcursoes::descadastrarSessao() {
     }
 }
 
+//--------------------------------------------------------------------------------------------
+
+void CntrApresentacaoExcursoes::listarSessoes(Codigo codigoExcursao) {
+
+    list<Sessao> sessoes = cntr->getSessoes(codigoExcursao);
+
+    string texto1 = "Data: ";
+    char texto2[] = "Digite algo para retornar...";
+    string texto3 = "Horario: ";
+    string texto4 = "Idioma: ";
+
+    int linha, coluna, i, j;
+    char campo[10];
+    getmaxyx(stdscr, linha, coluna);
+    clear();
+
+    i = -2;
+    j = -6;
+
+    int size =  sessoes.size();
+
+    for(list<Sessao>::iterator elemento = sessoes.begin(); elemento != sessoes.end(); elemento++){
+
+        mvprintw(linha/10 + i,coluna/10 + j,"%s", (texto1 + elemento->getData().getValor()).c_str());
+        i+=2;
+        mvprintw(linha/10 + i,coluna/10 + j,"%s", (texto3 + elemento->getHorario().getValor()).c_str());
+        i+=2;
+        mvprintw(linha/10 + i,coluna/10 + j,"%s", (texto4 + elemento->getIdioma().getValor()).c_str());
+        i+=4;
+
+        if( i == 30){
+            i = -2;
+            j += 44;
+        }
+    }
+
+    echo();
+    mvprintw(linha - 2,coluna/4,"%s", texto2);
+    getch();
+    noecho();
+
+}
 //--------------------------------------------------------------------------------------------

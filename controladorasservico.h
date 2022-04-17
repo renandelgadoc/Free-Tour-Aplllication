@@ -40,14 +40,16 @@ public:
     bool cadastrarExcursao(Excursao);
     bool descadastrarExcursao(Codigo);
     list<Excursao> getExcursoes();
-    bool autenticarExcursao(Codigo);
     bool criarListaAvaliacao(Excursao);
     bool removerListaAvaliacao(Codigo);
     list<Avaliacao> getAvaliacoes(Codigo);
     bool cadastrarAvaliacao(Avaliacao,Codigo);
     bool descadastrarAvaliacao(Codigo, Codigo);
-    bool cadastrarSessao(Sessao);
-    bool descadastrarSessao(Codigo);
+    bool cadastrarSessao(Sessao,Codigo);
+    bool descadastrarSessao(Codigo,Codigo);
+    list<Sessao> getSessoes(Codigo);
+    bool criarListaSessao(Excursao);
+    bool removerListaSessao(Codigo);
 };
 
 using namespace std;

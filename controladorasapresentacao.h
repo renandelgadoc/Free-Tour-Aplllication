@@ -2,7 +2,7 @@
 #define CONTROLADORASAPRESENTACAO_H_INCLUDED
 
 #include <string.h>
-#include <ncurses.h>
+#include "curses.h"
 #include "dominios.h"
 #include "entidades.h"
 #include "interfaces.h"
@@ -88,14 +88,14 @@ private:
     IServicoExcursoes *cntr;
     void cadastrarExcursao();
     bool descadastrarExcursao();
-    bool autenticarExcursao();
     void listarExcursoes();
     void consultarExcursao(Excursao*);
     void cadastrarAvaliacao(Excursao*) ;
     bool descadastrarAvaliacao(Codigo) ;
     void listarAvaliacoes(Codigo);
-    void cadastrarSessao() ;
-    bool descadastrarSessao() ;
+    void cadastrarSessao(Excursao*) ;
+    bool descadastrarSessao(Codigo) ;
+    void listarSessoes(Codigo);
 public:
     void executar();
     void executar(Email);

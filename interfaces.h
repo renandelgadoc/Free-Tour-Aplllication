@@ -43,6 +43,16 @@ class IApresentacaoExcursoes{
     public:
         virtual void executar() = 0;
         virtual void executar(Email) = 0;
+        virtual void cadastrarExcursao() = 0;
+        virtual bool descadastrarExcursao() = 0;
+        virtual void listarExcursoes() = 0;
+        virtual void consultarExcursao(Excursao*) = 0;
+        virtual void cadastrarAvaliacao(Excursao*) = 0;
+        virtual bool descadastrarAvaliacao(Codigo) = 0 ;
+        virtual void listarAvaliacoes(Codigo) = 0;
+        virtual void cadastrarSessao(Excursao*) = 0;
+        virtual bool descadastrarSessao(Codigo) = 0;
+        virtual void listarSessoes(Codigo) = 0;
         virtual void setCntrServicoExcursoes(IServicoExcursoes*) = 0;
         virtual ~IApresentacaoExcursoes(){}
 };
@@ -71,15 +81,17 @@ class IServicoExcursoes{
 public:
     virtual bool cadastrarExcursao(Excursao) = 0;
     virtual bool descadastrarExcursao(Codigo) = 0;
-    virtual bool autenticarExcursao(Codigo) = 0;
     virtual list<Excursao> getExcursoes() = 0;
     virtual bool criarListaAvaliacao(Excursao) = 0;
     virtual bool removerListaAvaliacao(Codigo) = 0;
     virtual bool cadastrarAvaliacao(Avaliacao,Codigo)= 0;
     virtual bool descadastrarAvaliacao(Codigo, Codigo) = 0;
     virtual list<Avaliacao> getAvaliacoes(Codigo) = 0;
-    virtual bool cadastrarSessao(Sessao) = 0;
-    virtual bool descadastrarSessao(Codigo) = 0;
+    virtual bool cadastrarSessao(Sessao,Codigo) = 0;
+    virtual bool descadastrarSessao(Codigo,Codigo) = 0;
+    virtual list<Sessao> getSessoes(Codigo) = 0;
+    virtual bool criarListaSessao(Excursao) = 0;
+    virtual bool removerListaSessao(Codigo) = 0;
     virtual ~IServicoExcursoes(){}
 };
 
