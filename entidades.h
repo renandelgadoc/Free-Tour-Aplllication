@@ -90,6 +90,7 @@ private:
     Codigo codigo;
     Nota nota;
     Descricao descricao;
+    Email email;
 public:
     void setCodigo(const Codigo&);
     Codigo getCodigo() const;
@@ -97,6 +98,8 @@ public:
     Nota getNota() const;
     void setDescricao(const Descricao&);
     Descricao getDescricao() const;
+    void setEmail(const Email&);
+    Email getEmail() const;
 };
 
 inline void Avaliacao::setCodigo(const Codigo& codigo){
@@ -122,6 +125,14 @@ inline void Avaliacao::setDescricao(const Descricao& descricao) {
 inline Descricao Avaliacao::getDescricao() const {
     return descricao;
 }
+
+inline void Avaliacao::setEmail(const Email& email) {
+    this->email = email;
+}
+
+inline Email Avaliacao::getEmail() const {
+    return email;
+}
 ///
 /// Padrão para representação de Sessão
 ///
@@ -137,6 +148,7 @@ private:
     Data data;
     Horario horario;
     Idioma idioma;
+    Email email;
 public:
     void setCodigo(const Codigo&);
     Codigo getCodigo() const;
@@ -146,6 +158,8 @@ public:
     Horario getHorario() const;
     void setIdioma(const Idioma&);
     Idioma getIdioma() const;
+    void setEmail(const Email&);
+    Email getEmail() const;
 };
 
 inline void Sessao::setCodigo(const Codigo& codigo) {
@@ -178,6 +192,14 @@ inline void Sessao::setIdioma(const Idioma& idioma) {
 
 inline Idioma Sessao::getIdioma() const {
     return idioma;
+}
+
+inline void Sessao::setEmail(const Email& email) {
+    this->email = email;
+}
+
+inline Email Sessao::getEmail() const {
+    return email;
 }
 ///
 /// Padrão para representação de Excursão

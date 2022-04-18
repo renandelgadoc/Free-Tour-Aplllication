@@ -40,6 +40,8 @@ public:
     bool cadastrarExcursao(Excursao);
     bool descadastrarExcursao(Codigo);
     list<Excursao> getExcursoes();
+    bool autenticarExcursao(Codigo);
+    void calcularNotaExcursao(list<Avaliacao>, Excursao*);
     bool criarListaAvaliacao(Excursao);
     bool removerListaAvaliacao(Codigo);
     list<Avaliacao> getAvaliacoes(Codigo);

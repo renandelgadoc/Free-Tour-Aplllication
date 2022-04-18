@@ -2,7 +2,7 @@
 #include <stdexcept>
 #include <iostream>
 
-#include "curses.h"
+#include <ncurses.h>
 #include "dominios.h"
 #include "interfaces.h"
 #include "controladorasapresentacao.h"
@@ -15,7 +15,7 @@ using namespace std;
 
     ContainerUsuario* ContainerUsuario::instancia = nullptr;
     ContainerExcursao* ContainerExcursao::instancia = nullptr;
-    ContainerListaSessao* ContainerListaSessao::instancia = nullptr;
+ContainerListaSessao* ContainerListaSessao::instancia = nullptr;
     ContainerListaAvaliacao* ContainerListaAvaliacao::instancia = nullptr;
 
 int main(){
@@ -49,7 +49,6 @@ int main(){
     cntrApresentacaoControle->setCntrApresentacaoExcursoes(cntrApresentacaoExcursoes);
 
     cntrApresentacaoAutenticacao->setCntrServicoAutenticacao(cntrServicoAutenticacao);
-    cntrApresentacaoAutenticacao->setCntrServicoPessoal(cntrServicoPessoal);
 
     cntrApresentacaoPessoal->setCntrServicoPessoal(cntrServicoPessoal);
     cntrApresentacaoPessoal->setCntrServicoExcursoes(cntrServicoExcursoes);

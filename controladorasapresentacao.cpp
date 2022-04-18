@@ -780,16 +780,18 @@ for(list<Excursao>::iterator elemento = excursoes.begin(); elemento != excursoes
 
     int indice = stoi(campo);
 
+
     if (indice <= size) {
         auto iterator = next(excursoes.begin(), (indice - 1));
         consultarExcursao(&*iterator);
+        return;
     }
     clear();
     echo();
     mvprintw(linha/4 + i + 2,coluna/4,"%s", texto3);
     getch();
     noecho();
-
+    return;
 }
 
 //--------------------------------------------------------------------------------------------
@@ -823,7 +825,7 @@ void CntrApresentacaoExcursoes::consultarExcursao(Excursao* excursao){
         clear();
         mvprintw(linha / 4 - 6, coluna / 4, "%s", excursao->getTitulo().getValor().c_str());
         mvprintw(linha / 4 - 4, coluna / 4, "%s", excursao->getCidade().getValor().c_str());
-        mvprintw(linha / 4 - 2, coluna / 4, "%s", (to_string(excursao->getDuracao().getValor()) + "minutos").c_str());
+        mvprintw(linha / 4 - 2, coluna / 4, "%s", (to_string(excursao->getDuracao().getValor()) + " minutos").c_str());
         mvprintw(linha / 4 , coluna / 4, "%s", excursao->getEndereco().getValor().c_str());
         mvprintw(linha / 4 + 2, coluna / 4, "%s", excursao->getDescricao().getValor().c_str());
         mvprintw(linha / 4 + 4, coluna / 4, "%s", to_string(excursao->getNota().getValor()).c_str());
@@ -841,9 +843,11 @@ void CntrApresentacaoExcursoes::consultarExcursao(Excursao* excursao){
         switch (campo) {
             case 1:
                 cadastrarAvaliacao(excursao);
+                cntr->calcularNotaExcursao(cntr->getAvaliacoes(excursao->getCodigo()),excursao);
                 break;
             case 2:
                 descadastrarAvaliacao(excursao->getCodigo());
+                cntr->calcularNotaExcursao(cntr->getAvaliacoes(excursao->getCodigo()),excursao);
                 break;
             case 3:
                 listarAvaliacoes(excursao->getCodigo());
@@ -895,7 +899,7 @@ void CntrApresentacaoExcursoes::cadastrarAvaliacao(Excursao* excursao) {
     getstr(campo2);                                                                             // Lê valor do campo.
 
     try{
-        nota.setValor(stoi(campo1));
+        nota.setValor(stof(campo1));
         descricao.setValor(string(campo2));
     }
     catch(invalid_argument &exp){
@@ -920,13 +924,9 @@ void CntrApresentacaoExcursoes::cadastrarAvaliacao(Excursao* excursao) {
 
     if(cntr->cadastrarAvaliacao(avaliacao, excursao->getCodigo())) {
 
-
-        excursao->getNota().setValor(nota.getValor());
-        mvprintw(linha/4 +20,coluna/4,"%s",  to_string(excursao->getNota().getValor()).c_str() );
-
-        mvprintw(linha/4 + 14,coluna/4,"%s",texto11.c_str());
-        mvprintw(linha/4 + 18,coluna/4,"%s",texto5);                                               // Informa sucesso.
-        mvprintw(linha/4 + 16,coluna/4,"%s",texto7);
+        mvprintw(linha/4 + 16,coluna/4,"%s",texto11.c_str());
+        mvprintw(linha/4 + 20,coluna/4,"%s",texto5);                                               // Informa sucesso.
+        mvprintw(linha/4 + 18,coluna/4,"%s",texto7);
         noecho();
         getch();
         echo();
@@ -1158,8 +1158,8 @@ bool CntrApresentacaoExcursoes::descadastrarSessao(Codigo codigoExcursao) {
 
     Codigo codigoSessao;
     try{
-    string stringCodigo = campo2;
-    codigoSessao.setValor(stringCodigo);
+        string stringCodigo = campo2;
+        codigoSessao.setValor(stringCodigo);
     }
     catch(invalid_argument &exp){
         mvprintw(linha/4 + 18,coluna/4,"%s",texto6);                                           // Informa formato incorreto.

@@ -245,6 +245,7 @@ void ContainerSessao::setExcursao(Excursao excursao) {
     this->excursao = excursao;
 }
 
+
 // ListaAvaliacao =-=-=-=-=-=-=
 
 ContainerListaAvaliacao* ContainerListaAvaliacao::getInstancia() {
@@ -282,6 +283,7 @@ ContainerAvaliacao* ContainerListaAvaliacao::getContainerAvaliacao(Codigo codigo
             return &*elemento;
     }
 }
+
 
 // Avaliacao
 

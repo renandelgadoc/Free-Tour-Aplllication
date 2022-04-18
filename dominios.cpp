@@ -317,16 +317,15 @@ void Nome::setValor(string nome) {   //200062743
 
 //-----------------------------------------------------------------------------------------------------------------------------
 
-void Nota::validar(int nota) {   //200062743
+void Nota::validar(float nota) {   //200062743
     if(nota<0 or nota>5){
         throw invalid_argument("Argumento Invalido.");
     }
 }
 
-void Nota::setValor(int nota) {   //200062743
+void Nota::setValor(float nota) {   //200062743
     validar(nota);
-    numeroNotas+=1;
-    this->nota = ((float)nota + (this->nota * (((float)numeroNotas) - 1)))/((float)numeroNotas);
+    this->nota = nota;
 }
 
 

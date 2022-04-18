@@ -60,6 +60,17 @@ inline Excursao ContainerSessao::getExcursao() const {
     return excursao;
 }
 
+class ContainerListaSessao{
+private:
+    list<ContainerSessao> container;
+    static ContainerListaSessao *instancia;
+public:
+    static ContainerListaSessao* getInstancia();
+    bool incluir(Excursao);
+    bool remover(Codigo);
+    ContainerSessao* getContainerSessao(Codigo);
+};
+
 class ContainerAvaliacao{
 private:
     list<Avaliacao> container;
@@ -88,17 +99,6 @@ public:
     bool incluir(Excursao);
     bool remover(Codigo);
     ContainerAvaliacao* getContainerAvaliacao(Codigo);
-};
-
-class ContainerListaSessao{
-private:
-    list<ContainerSessao> container;
-    static ContainerListaSessao *instancia;
-public:
-    static ContainerListaSessao* getInstancia();
-    bool incluir(Excursao);
-    bool remover(Codigo);
-    ContainerSessao* getContainerSessao(Codigo);
 };
 
 #endif //TP1T2_CONTAINERS_H

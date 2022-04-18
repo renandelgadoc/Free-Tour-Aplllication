@@ -2,7 +2,7 @@
 #define CONTROLADORASAPRESENTACAO_H_INCLUDED
 
 #include <string.h>
-#include "curses.h"
+#include <ncurses.h>
 #include "dominios.h"
 #include "entidades.h"
 #include "interfaces.h"
@@ -41,7 +41,6 @@ inline void CntrApresentacaoControle::setCntrApresentacaoExcursoes(IApresentacao
 class CntrApresentacaoAutenticacao:public IApresentacaoAutenticacao{
     private:
         IServicoAutenticacao *cntrServicoAutenticacao;
-        IServicoPessoal *cntrServicoPessoal;
 
 public:
         bool autenticar(Email*);
@@ -53,30 +52,26 @@ inline void CntrApresentacaoAutenticacao::setCntrServicoAutenticacao(IServicoAut
     cntrServicoAutenticacao = cntr;
 }
 
-inline void CntrApresentacaoAutenticacao::setCntrServicoPessoal(IServicoPessoal *cntr){
-    cntrServicoPessoal = cntr;
-}
 
 //--------------------------------------------------------------------------------------------
 
 class CntrApresentacaoPessoal:public IApresentacaoPessoal{
-    private:
-        IServicoPessoal *cntrServicoPessoal;
-        IServicoExcursoes *cntrServicoExcursoes;
-        void consultarDadosPessoais(Email email);
-    public:
-        bool executar(Email);
-        void cadastrar();
-        bool descadrastar(Email);
-        void setCntrServicoPessoal(IServicoPessoal*);
-        void setCntrServicoExcursoes(IServicoExcursoes*);
-        void atualizar(Email);
+private:
+    IServicoPessoal *cntrServicoPessoal;
+    IServicoExcursoes *cntrServicoExcursoes;
+    void consultarDadosPessoais(Email email);
+public:
+    bool executar(Email);
+    void cadastrar();
+    bool descadrastar(Email);
+    void setCntrServicoPessoal(IServicoPessoal*);
+    void setCntrServicoExcursoes(IServicoExcursoes*);
+    void atualizar(Email);
 };
 
 inline void CntrApresentacaoPessoal::setCntrServicoPessoal(IServicoPessoal *cntr){
     cntrServicoPessoal = cntr;
 }
-
 inline void CntrApresentacaoPessoal::setCntrServicoExcursoes(IServicoExcursoes *cntr){
     cntrServicoExcursoes = cntr;
 }
@@ -86,6 +81,7 @@ inline void CntrApresentacaoPessoal::setCntrServicoExcursoes(IServicoExcursoes *
 class CntrApresentacaoExcursoes: public IApresentacaoExcursoes{
 private:
     IServicoExcursoes *cntr;
+public:
     void cadastrarExcursao();
     bool descadastrarExcursao();
     void listarExcursoes();
@@ -96,7 +92,6 @@ private:
     void cadastrarSessao(Excursao*) ;
     bool descadastrarSessao(Codigo) ;
     void listarSessoes(Codigo);
-public:
     void executar();
     void executar(Email);
     void setCntrServicoExcursoes(IServicoExcursoes*);

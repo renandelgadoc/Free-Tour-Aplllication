@@ -37,8 +37,27 @@ bool CntrServicoExcursoes::descadastrarExcursao(Codigo codigo){
     return ContainerExcursao::getInstancia()->remover(codigo);
 }
 
+bool CntrServicoExcursoes::autenticarExcursao(Codigo codigo){
+    return ContainerExcursao::getInstancia()->autenticar(codigo);
+}
+
 list<Excursao> CntrServicoExcursoes::getExcursoes() {
     return ContainerExcursao::getInstancia()->getExcursoes();
+}
+
+void CntrServicoExcursoes::calcularNotaExcursao(list<Avaliacao> container, Excursao* excursao) {
+    int n = 0;
+    float notaValor = 0;
+    Nota nota;
+
+    for(list<Avaliacao>::iterator elemento = container.begin(); elemento != container.end(); elemento++){
+        n++;
+        notaValor += elemento->getNota().getValor();
+    }
+
+    nota.setValor(notaValor/((float)n));
+    excursao->setNota(nota);
+
 }
 
 bool CntrServicoExcursoes::criarListaAvaliacao(Excursao excursao) {
@@ -80,5 +99,6 @@ bool CntrServicoExcursoes::removerListaSessao(Codigo codigo) {
 list<Sessao> CntrServicoExcursoes::getSessoes(Codigo codigo) {
     return ContainerListaSessao::getInstancia()->getContainerSessao(codigo)->getSessoes();
 }
+
 
 //---------------------------------------------------------------------

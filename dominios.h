@@ -433,19 +433,18 @@ inline string Nome::getValor() const {   //200062743
 ///
 class Nota {   //200062743
 private:
-    float nota = 0;
-    int numeroNotas = 0;
+    float nota;
     ///
     /// Validação do valor informado
     /// @param valor Nome
     ///
-    void validar(int);
+    void validar(float);
 public:
     ///
     /// Armazena a nota
     /// @param valor Nota
     ///
-    void setValor(int);
+    void setValor(float);
     ///
     /// Retorna a nota
     /// @return Nota
