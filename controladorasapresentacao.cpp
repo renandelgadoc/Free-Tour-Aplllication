@@ -523,7 +523,7 @@ void CntrApresentacaoExcursoes::executar(){
 
 //--------------------------------------------------------------------------------------------
 
-void CntrApresentacaoExcursoes::executar(Email){
+void CntrApresentacaoExcursoes::executar(Email email){
 
     // Mensagens a serem apresentadas tela completa de produtos financeiros.
 
@@ -564,7 +564,7 @@ void CntrApresentacaoExcursoes::executar(Email){
                     break;
             case 2: descadastrarExcursao();
                     break;
-            case 3: listarExcursoes();
+            case 3: listarExcursoes(email);
                     break;
             case 4: apresentar = false;
                     break;
@@ -750,7 +750,53 @@ bool CntrApresentacaoExcursoes::descadastrarExcursao(){
 
 //--------------------------------------------------------------------------------------------
 
-void CntrApresentacaoExcursoes::listarExcursoes() {
+void CntrApresentacaoExcursoes::listarExcursoes(){
+
+    string texto1 = ". ";
+    char texto2[80] = "Digite o indice da excursao que deseja acessar: ";
+    char texto3[80] = "indice nao existente. Digite algo...";
+
+    list<Excursao> excursoes = cntr->getExcursoes();
+
+    int linha, coluna, i, j;
+    char campo[10];
+    getmaxyx(stdscr, linha, coluna);
+    clear();
+
+    i = 0;
+    j = 1;
+
+    for(list<Excursao>::iterator elemento = excursoes.begin(); elemento != excursoes.end(); elemento++){
+
+        mvprintw(linha/4 + i,coluna/4,"%s", (to_string(j) + texto1 + elemento->getTitulo().getValor()).c_str());
+        i+=2;
+        j+=1;
+    }
+    int size = excursoes.size();
+
+    echo();
+    mvprintw(linha/4 + i + 2,coluna/4,"%s", texto2);
+    getstr(campo);
+
+    int indice = stoi(campo);
+
+
+    if (indice <= size) {
+        auto iterator = next(excursoes.begin(), (indice - 1));
+        consultarExcursaoSemLogin(&*iterator);
+        return;
+    }
+    clear();
+    echo();
+    mvprintw(linha/4 + i + 2,coluna/4,"%s", texto3);
+    getch();
+    noecho();
+    return;
+}
+
+//--------------------------------------------------------------------------------------------
+
+void CntrApresentacaoExcursoes::listarExcursoes(Email) {
 
     string texto1 = ". ";
     char texto2[80] = "Digite o indice da excursao que deseja acessar: ";
@@ -860,6 +906,55 @@ void CntrApresentacaoExcursoes::consultarExcursao(Excursao* excursao){
                 listarSessoes(excursao->getCodigo());
                 break;
             case 7: return;
+        }
+    }
+}
+
+//--------------------------------------------------------------------------------------------
+
+void CntrApresentacaoExcursoes::consultarExcursaoSemLogin(Excursao* excursao) {
+
+    char texto3[] ="1. Ver Avaliacoes ";
+    char texto6[] ="2. Ver sessoes ";
+    char texto8[] ="3. Retornar";
+
+    int campo;
+    char campo2[80];                                                                                  // Campo de entrada.
+
+    int linha,coluna;                                                                           // Dados sobre tamanho da tela.
+
+    getmaxyx(stdscr,linha,coluna);                                                              // Armazena quantidade de linhas e colunas.
+
+    bool apresentar = true;                                                                     // Controle de laço.
+
+    noecho();                                                                                     // desabilita eco.
+
+    clear();
+
+
+    while(apresentar) {
+        clear();
+        mvprintw(linha / 4 - 6, coluna / 4, "%s", excursao->getTitulo().getValor().c_str());
+        mvprintw(linha / 4 - 4, coluna / 4, "%s", excursao->getCidade().getValor().c_str());
+        mvprintw(linha / 4 - 2, coluna / 4, "%s", (to_string(excursao->getDuracao().getValor()) + " minutos").c_str());
+        mvprintw(linha / 4 , coluna / 4, "%s", excursao->getEndereco().getValor().c_str());
+        mvprintw(linha / 4 + 2, coluna / 4, "%s", excursao->getDescricao().getValor().c_str());
+        mvprintw(linha / 4 + 4, coluna / 4, "%s", to_string(excursao->getNota().getValor()).c_str());
+        mvprintw(linha / 4 + 6, coluna / 4, "%s", texto3);
+        mvprintw(linha / 4 + 8, coluna / 4, "%s", texto6);
+        mvprintw(linha / 4 + 10, coluna / 4, "%s", texto8);
+        noecho();
+        campo = getch() - 48;
+        echo();
+
+        switch (campo) {
+            case 1:
+                listarAvaliacoes(excursao->getCodigo());
+                break;
+            case 2:
+                listarSessoes(excursao->getCodigo());
+                break;
+            case 3: return;
         }
     }
 }

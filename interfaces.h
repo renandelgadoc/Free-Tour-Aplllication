@@ -45,7 +45,9 @@ public:
     virtual void cadastrarExcursao() = 0;
     virtual bool descadastrarExcursao() = 0;
     virtual void listarExcursoes() = 0;
+    virtual void listarExcursoes(Email) = 0;
     virtual void consultarExcursao(Excursao*) = 0;
+    virtual void consultarExcursaoSemLogin(Excursao*) = 0;
     virtual void cadastrarAvaliacao(Excursao*) = 0;
     virtual bool descadastrarAvaliacao(Codigo) = 0 ;
     virtual void listarAvaliacoes(Codigo) = 0;

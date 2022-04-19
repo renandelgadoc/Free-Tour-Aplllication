@@ -85,7 +85,9 @@ public:
     void cadastrarExcursao();
     bool descadastrarExcursao();
     void listarExcursoes();
+    void listarExcursoes(Email);
     void consultarExcursao(Excursao*);
+    void consultarExcursaoSemLogin(Excursao*);
     void cadastrarAvaliacao(Excursao*) ;
     bool descadastrarAvaliacao(Codigo) ;
     void listarAvaliacoes(Codigo);
